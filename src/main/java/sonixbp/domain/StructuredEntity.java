@@ -7,12 +7,14 @@ import sonixbp.exception.AttributeNotDefinedException;
 import sonixbp.exception.MissingSchemaException;
 import sonixbp.schema.AttributeType;
 import sonixbp.schema.EntitySchema;
+import sonixbp.schema.SchemaValidator;
 import sonixbp.util.EntitySchemaUtils;
 
 public class StructuredEntity implements Entity {
 
     Entity entity;
     EntitySchema schema;
+    SchemaValidator validator;
 
     public StructuredEntity(Entity entity) {
 
@@ -256,8 +258,16 @@ public class StructuredEntity implements Entity {
 		
 		
 		// and test if each relationship passes the regex
+		
+		
+		// test to make sure all required fields are satisfied
 
 		return true;
+	}
+	
+	public SchemaValidator getValidator() {
+		
+		return validator;
 	}
 
 	public Set<String> getAttributeKeySet() {
