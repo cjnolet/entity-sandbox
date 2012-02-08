@@ -8,4 +8,9 @@ package sonixbp.schema;
  * To change this template use File | Settings | File Templates.
  */
 public class SchemaAttribute {
+	
+	String name;
+	String defaultValue;
+	
+	String validationRegex;
 }
