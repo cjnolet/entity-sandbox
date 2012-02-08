@@ -1,5 +1,7 @@
 package sonixbp.domain;
 
+import java.util.Date;
+
 /**
  * Created by IntelliJ IDEA.
  * User: cnolet
@@ -8,4 +10,10 @@ package sonixbp.domain;
  * To change this template use File | Settings | File Templates.
  */
 public class EValue {
+	
+	String key;
+	Object value;
+	String classification;
+	
+	Date timestamp;
 }

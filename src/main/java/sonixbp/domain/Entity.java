@@ -1,5 +1,7 @@
 package sonixbp.domain;
 
+import java.util.Set;
+
 /**
  * Created by IntelliJ IDEA.
  * User: cnolet
@@ -10,4 +12,13 @@ package sonixbp.domain;
 public interface Entity {
 
     String getType();
+    
+    Set<EValue> getFullAttribute(String attribute);
+    EValue getSingleAttribute(String attribute);
+    
+    Set<EValue> getFullRelationship(String relationship);
+    EValue getSingleRelationship(String relationship);
+    
+    void addAttribute(EValue attribute);
+    void addRelationship(EValue relationship);
 }
