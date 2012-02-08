@@ -3,7 +3,8 @@
 		
 		attributes:[
 			{
-				name:'ruleIds'
+				name:'ruleIds',
+				type:'attribute'
 			}
 		]
 	}    
