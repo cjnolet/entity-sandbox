@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import sonixbp.decorator.StructuredEntityDecorator;
 import sonixbp.domain.Entity;
 import sonixbp.domain.EntityImpl;
+import sonixbp.domain.StructuredEntity;
 import sonixbp.exception.MissingSchemaException;
 
-public class StructuredEntityDectoratorTest {
+public class StructuredEntityTest {
 
 	@Before
 	public void SetUp() {
@@ -23,7 +23,7 @@ public class StructuredEntityDectoratorTest {
 		Entity entity = new EntityImpl("noschema", "id");
 			
 		try {
-			StructuredEntityDecorator sEntity = new StructuredEntityDecorator(entity);
+			StructuredEntity sEntity = new StructuredEntity(entity);
 			fail();
 		} catch(MissingSchemaException e) {
 			
@@ -36,7 +36,7 @@ public class StructuredEntityDectoratorTest {
 		Entity entity = new EntityImpl("activityGroup", "id");
 		
 		try {
-			StructuredEntityDecorator sEntity = new StructuredEntityDecorator(entity);
+			StructuredEntity sEntity = new StructuredEntity(entity);
 		}
 		
 		catch(MissingSchemaException e) {

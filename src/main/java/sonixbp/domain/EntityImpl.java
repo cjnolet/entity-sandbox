@@ -86,4 +86,14 @@ public class EntityImpl implements Entity {
 			relationships.put(relationship.getKey(), relationshipSet);
 		}
 	}
+	
+	public Set<String> getAttributeKeySet() {
+		
+		return attributes.keySet();
+	}
+	
+	public Set<String> getRelationshipKeySet() {
+		
+		return relationships.keySet();
+	}
 }

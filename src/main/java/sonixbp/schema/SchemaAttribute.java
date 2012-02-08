@@ -3,12 +3,12 @@ package sonixbp.schema;
 
 public class SchemaAttribute {
 
-	String name;
-	String defaultValue;
+	private String name;
+	private String defaultValue;
+	private String validationRegex;
+	private boolean required = false;
 	
-	String validationRegex;
-	
-	AttributeType type;
+	private AttributeType type;
 	
 	public String getName() {
 		return name;
@@ -27,7 +27,8 @@ public class SchemaAttribute {
 	}
 	
 	public String toString() {
-		return "[name=" + name + ", type=" + type + ", defaultValue=" + defaultValue + 
+		return "[name=" + name + ", type=" + type + ", required=" + required + 
+		", defaultValue=" + defaultValue + 
 		", validationRegex=" + validationRegex + "]";
 	}
 }

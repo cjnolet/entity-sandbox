@@ -21,4 +21,7 @@ public interface Entity {
     
     void addAttribute(EValue attribute);
     void addRelationship(EValue relationship);
+    
+    Set<String> getAttributeKeySet();
+    Set<String> getRelationshipKeySet();
 }
