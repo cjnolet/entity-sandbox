@@ -1,7 +1,6 @@
 package sonixbp.domain;
 
 import java.util.HashSet;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import sonixbp.exception.AttributeNotDefinedException;
@@ -42,9 +41,7 @@ public class StructuredEntity implements Entity {
 		
 		else if(schema.getAttribute(attribute) == null ||
 				!schema.getAttribute(attribute)
-					.getType()
-					.toString()
-					.equals("attribute")) {
+					.getType().equals(AttributeType.attribute)) {
 			
 			throw new AttributeNotDefinedException();
 		}
@@ -90,9 +87,7 @@ public class StructuredEntity implements Entity {
 		
 		else if(schema.getAttribute(attribute) == null ||
 				!schema.getAttribute(attribute)
-					.getType()
-					.toString()
-					.equals("attribute")) {
+					.getType().equals(AttributeType.attribute)) {
 			
 			throw new AttributeNotDefinedException();
 		}
