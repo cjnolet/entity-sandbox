@@ -30,11 +30,12 @@ public class EntitySchemaUtils {
             String schemaDefinition = "";
             String buffer = reader.readLine();
             while(buffer != null) {
-                schemaDefinition = buffer;
+                schemaDefinition += buffer;
                 
                 buffer = reader.readLine();
             }
 
+            System.out.println(schemaDefinition);
             Gson gson = new Gson();
 
             Map<String, EntitySchema> schema = gson.fromJson(schemaDefinition, listType);

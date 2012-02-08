@@ -71,7 +71,7 @@ public class StructuredEntityDecorator implements Entity {
 	public void addRelationship(EValue relationship) {
 		
 		// if the attribute doesn't validate or is missing...
-		// we need to throw a runtime exception
+		// we need to throw a runtime exception`
 	}
 	
 	public boolean validate() {
