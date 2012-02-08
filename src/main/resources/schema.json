@@ -1,3 +1,10 @@
 {
-    
+	activityGroup: {
+		
+		attributes:[
+			{
+				name:'ruleIds'
+			}
+		]
+	}    
 }
