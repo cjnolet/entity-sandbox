@@ -5,7 +5,9 @@
 			{
 				name:'ruleIds',
 				type:'attribute',
-				required:true
+				required:true,
+				syncStrategy:'default',
+				tagStrategy:'derived'
 			}
 		]
 	}    
