@@ -1,17 +1,41 @@
 package sonixbp.domain;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class EValue {
-	
+
+    String id;
 	String key;
 	Object value;
 	String classification;
-	
 	Date timestamp;
 
+    public EValue() {
+        id = UUID.randomUUID().toString();
+    }
 
-	public String getKey() {
+    public EValue(String key, Object value) {
+        this();
+        this.key = key;
+        this.value = value;
+    }
+
+    public EValue(EValue eValue, Object newValue){
+        this.key = eValue.getKey();
+        this.value = newValue;
+        this.id = eValue.getId();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getKey() {
 		return key;
 	}
 
