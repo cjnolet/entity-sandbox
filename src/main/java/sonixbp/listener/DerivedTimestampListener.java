@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.Set;
 
 import sonixbp.domain.EValue;
-import sonixbp.domain.Entity;
+import sonixbp.domain.BasicEntity;
 
-public class DerivedTimestampAttributeListener implements AttributeListener {
+public class DerivedTimestampListener implements AttributeListener {
 
-	public void attributeUpdated(Entity entity, EValue self, EValue newValue) {
+	public void attributeUpdated(BasicEntity entity, EValue self, EValue newValue) {
 
 		if(newValue.getTimestamp().after(self.getTimestamp())) {
 			
@@ -16,7 +16,7 @@ public class DerivedTimestampAttributeListener implements AttributeListener {
 		}
 	}
 
-	public void attributeAdded(Entity entity, EValue self, EValue newValue) {
+	public void attributeAdded(BasicEntity entity, EValue self, EValue newValue) {
 		
 		if(newValue.getTimestamp().after(self.getTimestamp())) {
 			
@@ -24,7 +24,7 @@ public class DerivedTimestampAttributeListener implements AttributeListener {
 		}
 	}
 
-	public void attributeDeleted(Entity entity, EValue self, EValue newValue) {
+	public void attributeDeleted(BasicEntity entity, EValue self, EValue newValue) {
 		
 		if(newValue.getTimestamp().equals(self.getTimestamp())) {
 			
@@ -32,17 +32,17 @@ public class DerivedTimestampAttributeListener implements AttributeListener {
 		}
 	}
 
-	public void selfUpdated(Entity entity, EValue self) {
+	public void selfUpdated(BasicEntity entity, EValue self) {
 
 		self.setTimestamp(deriveFullTimestamp(entity));
 	}
 
-	public void selfAdded(Entity entity, EValue self) {
+	public void selfAdded(BasicEntity entity, EValue self) {
 		
 		self.setTimestamp(deriveFullTimestamp(entity));
 	}
 	
-	private Date deriveFullTimestamp(Entity entity) {
+	private Date deriveFullTimestamp(BasicEntity entity) {
 		
 		Set<String> attributes = entity.getAttributeKeySet();
 		Set<String> relationships = entity.getRelationshipKeySet();
@@ -84,5 +84,4 @@ public class DerivedTimestampAttributeListener implements AttributeListener {
 		
 		return maxTimestamp;
 	}
-
 }

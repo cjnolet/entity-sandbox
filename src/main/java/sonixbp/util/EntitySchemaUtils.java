@@ -15,7 +15,6 @@ import com.google.gson.reflect.TypeToken;
 
 public class EntitySchemaUtils {
 
-
     public static final String SCHEMA_FILENAME = "schema.json";
 
     public static EntitySchema parseEntitySchemaFromResource(String type) {

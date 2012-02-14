@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import sonixbp.domain.BasicEntity;
 import sonixbp.domain.Entity;
-import sonixbp.domain.EntityImpl;
 import sonixbp.domain.StructuredEntity;
 import sonixbp.exception.MissingSchemaException;
 
@@ -20,7 +20,7 @@ public class StructuredEntityTest {
 	@Test
 	public void testEntityWithMissingSchema() {
 		
-		Entity entity = new EntityImpl("noschema", "id");
+		BasicEntity entity = new Entity("noschema", "id");
 			
 		try {
 			StructuredEntity sEntity = new StructuredEntity(entity);
@@ -33,7 +33,7 @@ public class StructuredEntityTest {
 	
 	@Test
 	public void testEntitWithAssociatedSchema() {
-		Entity entity = new EntityImpl("activityGroup", "id");
+		BasicEntity entity = new Entity("activityGroup", "id");
 		
 		try {
 			StructuredEntity sEntity = new StructuredEntity(entity);
