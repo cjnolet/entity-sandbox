@@ -1,5 +1,9 @@
 package sonixbp.schema;
 
+import java.util.Set;
+
+import sonixbp.listener.AttributeListener;
+
 
 public class SchemaAttribute {
 
@@ -7,6 +11,8 @@ public class SchemaAttribute {
 	private String defaultValue;
 	private String validationRegex;
 	private boolean required = false;
+	
+	private AttributeListener attributeListener;
 	
 	private AttributeType type;
 	

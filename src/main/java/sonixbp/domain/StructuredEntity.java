@@ -10,22 +10,25 @@ import sonixbp.schema.EntitySchema;
 import sonixbp.schema.SchemaValidator;
 import sonixbp.util.EntitySchemaUtils;
 
-public class StructuredEntity implements Entity {
+public class StructuredEntity implements BasicEntity, Validateable {
 
-    Entity entity;
+    BasicEntity entity;
     EntitySchema schema;
     SchemaValidator validator;
 
-    public StructuredEntity(Entity entity) {
+    public StructuredEntity(BasicEntity entity) {
 
         schema = EntitySchemaUtils.parseEntitySchemaFromResource(entity.getType());
+        this.entity = entity;
 
         if(schema == null) {
         	
             throw new MissingSchemaException();
         }
-
-        this.entity = entity;
+        
+        else {
+            this.validator = new SchemaValidator(schema, entity);
+        }
     }
 
     public String getType() {
@@ -234,35 +237,40 @@ public class StructuredEntity implements Entity {
 			return false;
 		}
 		
-		// does each attribute exist in the schema?
-		for(String attribute : getAttributeKeySet()) {
-			if(schema.getAttribute(attribute) == null ||
-					!schema.getAttribute(attribute)
-						.getType().equals(AttributeType.attribute)) {
-				
-				return false;
-			}
-		}
+		else {
+			
+			return validator.validate();
 
-		// does each relationship exist in the schema?
-		for(String relationship : getRelationshipKeySet()) {
-			if(schema.getAttribute(relationship) == null ||
-					!schema.getAttribute(relationship)
-						.getType().equals(AttributeType.relationship)) {
-				
-				return false;
-			}
 		}
 		
-		// now we need to test if each attribute passes the regex
-		
-		
-		// and test if each relationship passes the regex
-		
-		
-		// test to make sure all required fields are satisfied
+//		// does each attribute exist in the schema?
+//		for(String attribute : getAttributeKeySet()) {
+//			if(schema.getAttribute(attribute) == null ||
+//					!schema.getAttribute(attribute)
+//						.getType().equals(AttributeType.attribute)) {
+//				
+//				return false;
+//			}
+//		}
+//
+//		// does each relationship exist in the schema?
+//		for(String relationship : getRelationshipKeySet()) {
+//			if(schema.getAttribute(relationship) == null ||
+//					!schema.getAttribute(relationship)
+//						.getType().equals(AttributeType.relationship)) {
+//				
+//				return false;
+//			}
+//		}
+//		
+//		// now we need to test if each attribute passes the regex
+//		
+//		
+//		// and test if each relationship passes the regex
+//		
+//		
+//		// test to make sure all required fields are satisfied
 
-		return true;
 	}
 	
 	public SchemaValidator getValidator() {
@@ -278,5 +286,25 @@ public class StructuredEntity implements Entity {
 	public Set<String> getRelationshipKeySet() {
 		
 		return entity.getRelationshipKeySet();
+	}
+
+	public void updateAttribute(EValue attribute) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateRelationship(EValue relationship) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deleteAttribute(EValue attribute) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deleteRelationship(EValue relationship) {
+		// TODO Auto-generated method stub
+		
 	}
 }
