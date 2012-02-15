@@ -14,10 +14,13 @@ public class Caretaker {
     private Map<String, Set<Memento>> relationships;
 
     public Caretaker(BasicEntity entity) {
+        this.reset();
+        capture(entity);
+    }
+
+    public void reset(){
         this.attributes = new HashMap<String, Set<Memento>>();
         this.relationships = new HashMap<String, Set<Memento>>();
-
-        capture(entity);
     }
 
     private void capture(BasicEntity entity) {

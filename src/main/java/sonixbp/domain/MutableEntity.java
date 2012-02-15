@@ -29,7 +29,8 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		
 		try {
 			
-			// dump the memento to the persistent service here
+			this.persistentService.save(this.entity);
+
 			return true;
 		}
 		
@@ -38,7 +39,10 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		}
 	}
 
-	public String getType() {
+    public void rollback() {
+    }
+
+    public String getType() {
 
 		return entity.getType();
 	}
@@ -162,4 +166,5 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		}
 
 	}
+
 }

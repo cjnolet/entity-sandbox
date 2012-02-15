@@ -4,4 +4,6 @@ public interface BatchedMutable {
 	
 	boolean apply();
 
+    void rollback();
+
 }
