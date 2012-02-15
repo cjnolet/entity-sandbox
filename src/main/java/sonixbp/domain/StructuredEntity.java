@@ -7,14 +7,15 @@ import sonixbp.exception.AttributeNotDefinedException;
 import sonixbp.exception.MissingSchemaException;
 import sonixbp.exception.RequiredAttributeMissingException;
 import sonixbp.schema.EntitySchema;
-import sonixbp.schema.SchemaValidator;
+import sonixbp.schema.EntitySchemaValidator;
 import sonixbp.util.EntitySchemaUtils;
 
+@Deprecated
 public class StructuredEntity implements BasicEntity, Validateable {
 
     BasicEntity entity;
     EntitySchema schema;
-    SchemaValidator validator;
+    EntitySchemaValidator validator;
 
     public StructuredEntity(BasicEntity entity) {
 
@@ -27,7 +28,7 @@ public class StructuredEntity implements BasicEntity, Validateable {
         }
         
         else {
-            this.validator = new SchemaValidator(schema, entity);
+            this.validator = new EntitySchemaValidator(schema, entity);
         }
     }
 
@@ -247,7 +248,7 @@ public class StructuredEntity implements BasicEntity, Validateable {
 
 	}
 	
-	public SchemaValidator getValidator() {
+	public EntitySchemaValidator getValidator() {
 		
 		return validator;
 	}

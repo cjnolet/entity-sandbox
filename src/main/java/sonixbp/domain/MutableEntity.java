@@ -5,6 +5,7 @@ import java.util.Set;
 import sonixbp.memento.Caretaker;
 import sonixbp.service.EntityService;
 
+@Deprecated
 public class MutableEntity implements BasicEntity, BatchedMutable {
 
 	EntityService persistentService;
