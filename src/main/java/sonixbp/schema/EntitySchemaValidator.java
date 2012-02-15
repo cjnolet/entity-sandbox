@@ -20,7 +20,7 @@ public class EntitySchemaValidator  {
 		this.entity = entity;
 	}
 	
-	public Map<EValue, String> getErrors() {
+	public Map<EValue, Set<String>> getErrors() {
 		return validationErrors;
 	}
 
