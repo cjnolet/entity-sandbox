@@ -12,7 +12,7 @@ import sonixbp.schema.EntitySchema;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
+@Deprecated
 public class EntitySchemaUtils {
 
     public static final String SCHEMA_FILENAME = "schema.json";

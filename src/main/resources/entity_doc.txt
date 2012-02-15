@@ -50,12 +50,24 @@ entities.
 {
 	activityGroup: {
 		
-		allowOtherAttributes:false,
+		allowUndefinedAttributes:false,
+		allowUndefinedRelationships:false,
+		
 		attributes:[
 			{
 				name:'ruleIds',
 				required:true,
+				validationRegex:[A-Za-z0-9]+\-[A-Za-z0-9],
 				hasMany:true
+			}
+		],
+		
+		relationships:[
+			{
+				name:'parent',
+				entityTypeConstraint:'activityGroup',
+				required:false,
+				hasMany:false
 			}
 		]
 	}    

@@ -1,10 +1,23 @@
 package sonixbp.schema;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+
+import sonixbp.exception.MalformedSchemaException;
+import sonixbp.exception.MissingSchemaException;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class EntitySchema {
 	
 	private boolean allowsUndefinedAttributes = false;
+	private boolean allowsUndefinedRelationships = false;
 	private List<SchemaAttribute> attributes;
 	private List<SchemaRelationship> relationships;
 
@@ -23,6 +36,10 @@ public class EntitySchema {
 	
 	public boolean allowsUndefinedAttributes() {
 		return allowsUndefinedAttributes;
+	}
+	
+	public boolean allowsUndefinedRelationships() {
+		return allowsUndefinedRelationships;
 	}
 	
 	public String getDefaultValueForAttribute(String attribute) {
@@ -57,4 +74,60 @@ public class EntitySchema {
 		
 		return null;
 	}
+	
+    public static EntitySchema parseEntitySchemaFromResource(String schemaFilename, String type) {
+
+        Type listType = new TypeToken<Map<String, EntitySchema>>(){}.getType();
+
+        try {
+        	
+        	InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(schemaFilename);
+        	
+        	if(is == null) {
+        		throw new MissingSchemaException();
+        	} 
+
+        	BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+            String schemaDefinition = "";
+            String buffer = reader.readLine();
+            while(buffer != null) {
+                schemaDefinition += buffer;
+                
+                buffer = reader.readLine();
+            }
+            
+            Gson gson = new Gson();
+            
+            Map<String, EntitySchema> schema = null;
+            try {
+               schema = gson.fromJson(schemaDefinition, listType);
+            }
+            
+            catch(Exception e) {
+            	throw new MalformedSchemaException();
+            }
+            
+            if(schema != null) {
+            	
+            	if(schema.get(type) != null) {
+                    return schema.get(type); 
+            	}
+            	
+                else {
+                	
+                	throw new MissingSchemaException();
+                }
+            }
+            
+            else {
+            	throw new MissingSchemaException();
+            }
+        }
+
+        catch(IOException e) {
+
+            throw new MissingSchemaException();
+        }
+    }
 }

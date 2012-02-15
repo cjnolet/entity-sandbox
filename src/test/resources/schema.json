@@ -5,7 +5,6 @@
 		attributes: [{
 		
 				name:'ruleIds',
-				type:'attribute',
 				required:true
 				
 			},{
