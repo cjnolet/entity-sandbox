@@ -54,7 +54,6 @@ entities.
 		attributes:[
 			{
 				name:'ruleIds',
-				type:'attribute',
 				required:true,
 				hasMany:true
 			}

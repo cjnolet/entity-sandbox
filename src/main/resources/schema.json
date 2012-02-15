@@ -5,7 +5,8 @@
 			{
 				name:'ruleIds',
 				type:'attribute',
-				required:true
+				required:true,
+				hasMany:true
 			}
 		]
 	}    

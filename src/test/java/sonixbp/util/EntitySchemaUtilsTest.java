@@ -22,7 +22,6 @@ public class EntitySchemaUtilsTest {
 			
 			if(count == 1) {
 				assertEquals("ruleIds", attribute.getName());
-				assertEquals("attribute", attribute.getType().toString());
 			}
 		}
 	}

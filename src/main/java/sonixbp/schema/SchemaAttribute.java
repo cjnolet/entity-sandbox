@@ -10,11 +10,18 @@ public class SchemaAttribute {
 	private String name;
 	private String defaultValue;
 	private String validationRegex;
+
 	private boolean required = false;
+	private boolean hasMany = false;
+
 	
-	private AttributeListener attributeListener;
-	
-	private AttributeType type;
+	public boolean isRequired() {
+		return required;
+	}
+
+	public boolean hasMany() {
+		return hasMany;
+	}
 	
 	public String getName() {
 		return name;
@@ -27,13 +34,9 @@ public class SchemaAttribute {
 	public String getValidationRegex() {
 		return validationRegex;
 	}
-
-	public AttributeType getType() {
-		return type;
-	}
 	
 	public String toString() {
-		return "[name=" + name + ", type=" + type + ", required=" + required + 
+		return "[name=" + name + "," + ", required=" + required + 
 		", defaultValue=" + defaultValue + 
 		", validationRegex=" + validationRegex + "]";
 	}

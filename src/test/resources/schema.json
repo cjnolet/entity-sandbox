@@ -8,8 +8,7 @@
 				required:true
 				
 			},{
-				name:'name',
-				type:'attribute'
+				name:'name'
 		}]
 	}    
 }
