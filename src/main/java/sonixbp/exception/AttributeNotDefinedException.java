@@ -7,5 +7,5 @@ package sonixbp.exception;
  * Time: 8:41:32 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AttributeNotDefinedException extends RuntimeException {
+public class AttributeNotDefinedException extends StructuredEntityException {
 }

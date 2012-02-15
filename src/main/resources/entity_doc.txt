@@ -1,0 +1,76 @@
+Entity Store API
+----------------------------------------
+
+What is an Entity?
+
+- An entity is nothing more than a container pojo with an id, timstamp,
+type, attributes, and relationships.
+- A single Entity can have multiple attributes for the same name, for instance, if I have an entity representing a type Person, an instance of
+a single person can have multiple attributes for their "interests". 
+- Each attribute has a classification as well as a UUID to make it distinct from other attributes.
+- Relationships are a special attribute that retains enough information to look up the child entity.
+- The attributes/relationships are represente using instances of EValue objects.
+
+
+How are Entities manipulated?
+
+- Entities are manipulated through an implementation of the EntityService interface. 
+- The EntityService interface acts as an abstraction for the storage data access layer so that Entities can interact with 
+the storage mechanism in a meaningful way (i.e. querying objects and not single rows, saving objects and not single rows). 
+- Currently, the most used implementation of the EntityService is the CloudbaseTripleStore data access layer.
+- The EntityService provides methods for manipulating both entities and attributes/relationships associated to entities.
+
+
+What can I do with the Entity Web Service?
+
+- The Entity Web Service provides a meaningful way for javascript and webapps to interact with an EntityService implementation by way of
+HTTP requests. 
+- The entity web services provides the basic create, read, update, delete options as well as different query operations.
+- A schema.json file can be placed on the classpath of the container on which the web service is deployed so that we can 
+
+
+
+How can we structure & validate an unstructured entity?
+
+- By default, attributes/relationships on an Entity are unstructured, this means any attributes/relationships can be added/removed at
+any time and there's no way to force that an entity have a certain set of attributes/relationships upon saving/updating.
+- Fear not, for there is hope yet!
+- StructuredEntity objects allow you define the structure & constraints of the attributes/relationships of an Entity, 
+allowing runtime validation to be possible. 
+- After defining the schema, using a structured entity is as easy as: StructuredEntity structuredEntity = new StructuredEntity(entity);
+- A schema is not found for the entity.getType(), a MissingSchemaException runtime exception will be thrown.
+- When trying to add/remove/update any attributes/relationships which violate a constraint in the schema, the proper runtime exceptions will be thrown.
+
+
+Where do we define the structure of a StructuredEntity?
+
+- In the src/main/resources of cyberpilot-common, you will find a schema.json file, this is where the schema definitions go to structure
+entities.
+- The schema.json file has the following format:
+{
+	activityGroup: {
+		
+		allowOtherAttributes:false,
+		attributes:[
+			{
+				name:'ruleIds',
+				required:true,
+				hasMany:true
+			}
+		]
+	}    
+}
+
+* In this schema.json, we have an entity that we structure of type "activityGroup", which is required to have a single attribute type, "ruleIds",
+of which there can be many values. It is also not possible to add any other attributes to this entity.
+
+
+How does a MutableEntity work? 
+
+- A mutable entity has the ability to audit its changes throughout it's life scope as a java object.
+- The purpose of this functionality is two-fold:
+  1) The ability now exists for an entity to be rolled back to some previous state- this is good for objects that are maintained and manipulated in
+     some session context.
+  2) An entity's attributes/relationships can be manipulated and synchronized with the backing store layer separately from the entire entity (i.e.
+     a single attribute can be added/updated/deleted without the need to delete/re-save the entire entity).
+     

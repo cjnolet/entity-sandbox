@@ -1,5 +1,5 @@
 package sonixbp.exception;
 
-public class AttributeExistsException extends RuntimeException {
+public class AttributeExistsException extends StructuredEntityException {
 
 }

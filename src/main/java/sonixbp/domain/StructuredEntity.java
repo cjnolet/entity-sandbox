@@ -5,7 +5,7 @@ import java.util.Set;
 
 import sonixbp.exception.AttributeNotDefinedException;
 import sonixbp.exception.MissingSchemaException;
-import sonixbp.schema.AttributeType;
+import sonixbp.exception.RequiredAttributeMissingException;
 import sonixbp.schema.EntitySchema;
 import sonixbp.schema.SchemaValidator;
 import sonixbp.util.EntitySchemaUtils;
@@ -44,9 +44,7 @@ public class StructuredEntity implements BasicEntity, Validateable {
 			throw new MissingSchemaException();
 		}
 		
-		else if(schema.getAttribute(attribute) == null ||
-				!schema.getAttribute(attribute)
-					.getType().equals(AttributeType.attribute)) {
+		else if(schema.getAttribute(attribute) == null) {
 			
 			throw new AttributeNotDefinedException();
 		}
@@ -67,6 +65,11 @@ public class StructuredEntity implements BasicEntity, Validateable {
 					retVals.add(value);
 					
 					return retVals;
+				}
+				
+				else if(schema.getAttribute(attribute).isRequired()) {
+					
+					throw new RequiredAttributeMissingException();
 				}
 				
 				return null;
@@ -90,9 +93,7 @@ public class StructuredEntity implements BasicEntity, Validateable {
 			throw new MissingSchemaException();
 		}
 		
-		else if(schema.getAttribute(attribute) == null ||
-				!schema.getAttribute(attribute)
-					.getType().equals(AttributeType.attribute)) {
+		else if(schema.getAttribute(attribute) == null) {
 			
 			throw new AttributeNotDefinedException();
 		}
@@ -109,6 +110,11 @@ public class StructuredEntity implements BasicEntity, Validateable {
 					value.setValue(defaultValue);
 					
 					return value;
+				}
+				
+				else if(schema.getAttribute(attribute).isRequired()) {
+					
+					throw new RequiredAttributeMissingException();
 				}
 				
 				return null;
@@ -130,32 +136,16 @@ public class StructuredEntity implements BasicEntity, Validateable {
 			throw new MissingSchemaException();
 		}
 		
-		else if(schema.getAttribute(relationship) == null ||
-				!schema.getAttribute(relationship)
-					.getType().equals(AttributeType.relationship)) {
+		else if(schema.getRelationship(relationship) == null) {
 			
 			throw new AttributeNotDefinedException();
 		}
 		
 		else {
-			if(values == null) {
+			if(values == null && 
+					schema.getRelationship(relationship).isRequired()) {
 				
-				String defaultValue = schema.getDefaultValueForAttribute(relationship);
-				
-				if(defaultValue != null) {
-					Set<EValue> retVals = new HashSet<EValue>();
-					
-					EValue value = new EValue();
-					value.setKey(relationship);
-					value.setValue(defaultValue);
-					
-					retVals.add(value);
-					
-					return retVals;
-				}
-				
-				return null;
-				
+				throw new RequiredAttributeMissingException();
 			}
 			
 			else {
@@ -173,27 +163,15 @@ public class StructuredEntity implements BasicEntity, Validateable {
 			throw new MissingSchemaException();
 		}
 		
-		else if(schema.getAttribute(relationship) == null ||
-				!schema.getAttribute(relationship)
-					.getType().equals(AttributeType.relationship)) {
+		else if(schema.getAttribute(relationship) == null) {
 			
 			throw new AttributeNotDefinedException();
 		}
 		
 		else {
-			if(values == null) {
+			if(values == null && schema.getRelationship(relationship).isRequired()) {
 				
-				String defaultValue = schema.getDefaultValueForAttribute(relationship);
-				
-				if(defaultValue != null) {
-					EValue value = new EValue();
-					value.setKey(relationship);
-					value.setValue(defaultValue);
-					
-					return value;
-				}
-				
-				return null;
+				throw new RequiredAttributeMissingException();
 			}
 			
 			else {
@@ -204,9 +182,7 @@ public class StructuredEntity implements BasicEntity, Validateable {
 
 	public void addAttribute(EValue attribute) {
 		
-		if(schema.getAttribute(attribute.getKey()) == null ||
-				!schema.getAttribute(attribute.getKey())
-					.getType().equals(AttributeType.attribute)) {
+		if(schema.getAttribute(attribute.getKey()) == null) {
 			
 			throw new AttributeNotDefinedException();
 		}
@@ -218,9 +194,7 @@ public class StructuredEntity implements BasicEntity, Validateable {
 
 	public void addRelationship(EValue relationship) {
 		
-		if(schema.getAttribute(relationship.getKey()) == null ||
-				!schema.getAttribute(relationship.getKey())
-					.getType().equals(AttributeType.relationship)) {
+		if(schema.getRelationship(relationship.getKey()) == null) {
 			
 			throw new AttributeNotDefinedException();
 		}
@@ -289,22 +263,24 @@ public class StructuredEntity implements BasicEntity, Validateable {
 	}
 
 	public void updateAttribute(EValue attribute) {
-		// TODO Auto-generated method stub
+		
+		entity.updateAttribute(attribute);
 		
 	}
 
 	public void updateRelationship(EValue relationship) {
-		// TODO Auto-generated method stub
+		
+		entity.updateRelationship(relationship);
 		
 	}
 
 	public void deleteAttribute(EValue attribute) {
-		// TODO Auto-generated method stub
+		
+		entity.deleteAttribute(attribute);
 		
 	}
 
 	public void deleteRelationship(EValue relationship) {
-		// TODO Auto-generated method stub
-		
+		entity.deleteRelationship(relationship);
 	}
 }
