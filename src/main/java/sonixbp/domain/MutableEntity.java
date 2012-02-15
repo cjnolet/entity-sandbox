@@ -2,7 +2,7 @@ package sonixbp.domain;
 
 import java.util.Set;
 
-import sonixbp.memento.EntityMemento;
+import sonixbp.memento.Caretaker;
 import sonixbp.service.EntityService;
 
 @Deprecated
@@ -10,11 +10,13 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 
 	EntityService persistentService;
 	BasicEntity entity;
-	EntityMemento memento;
-		
+	Caretaker caretaker;
+
 	public MutableEntity(BasicEntity entity, EntityService persistentService) {
+
 		this.entity = entity;
 		this.persistentService = persistentService;
+        this.caretaker = new Caretaker(entity);
 	}
 	
 	public boolean apply() {
