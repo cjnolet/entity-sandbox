@@ -21,9 +21,9 @@ public class EValue {
         this.value = value;
     }
 
-    public EValue(EValue eValue, Object newValue){
+    public EValue(EValue eValue){
         this.key = eValue.getKey();
-        this.value = newValue;
+        this.value = eValue.getValue();
         this.id = eValue.getId();
     }
 
