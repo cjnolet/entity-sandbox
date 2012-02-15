@@ -1,6 +1,7 @@
 {
 	activityGroup: {
 		
+		allowsUndefinedAttributes: false,
 		attributes: [{
 		
 				name:'ruleIds',

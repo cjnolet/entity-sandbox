@@ -36,7 +36,7 @@ public class SchemaAttribute {
 	}
 	
 	public String toString() {
-		return "[name=" + name + "," + ", required=" + required + 
+		return "[name=" + name + ", " + "required=" + required + 
 		", defaultValue=" + defaultValue + 
 		", validationRegex=" + validationRegex + "]";
 	}

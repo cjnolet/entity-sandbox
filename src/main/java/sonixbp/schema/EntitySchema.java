@@ -4,8 +4,9 @@ import java.util.List;
 
 public class EntitySchema {
 	
-	List<SchemaAttribute> attributes;
-	List<SchemaRelationship> relationships;
+	private boolean allowsUndefinedAttributes = false;
+	private List<SchemaAttribute> attributes;
+	private List<SchemaRelationship> relationships;
 
 	public List<SchemaAttribute> getAttributes() {
 		return attributes;
@@ -18,6 +19,10 @@ public class EntitySchema {
 	public String toString() {
 		return "attributes= [" + attributes != null ? attributes.toString() : "" + "], " + 
 			   "relationships = [" + relationships != null ? relationships.toString() : "" + "]";
+	}
+	
+	public boolean allowsUndefinedAttributes() {
+		return allowsUndefinedAttributes;
 	}
 	
 	public String getDefaultValueForAttribute(String attribute) {
