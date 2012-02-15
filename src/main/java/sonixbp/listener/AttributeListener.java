@@ -1,7 +1,7 @@
 package sonixbp.listener;
 
-import sonixbp.domain.EValue;
 import sonixbp.domain.BasicEntity;
+import sonixbp.domain.EValue;
 
 public interface AttributeListener {
 	

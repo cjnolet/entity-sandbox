@@ -7,5 +7,5 @@ package sonixbp.exception;
  * Time: 8:41:24 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MissingSchemaException extends RuntimeException {
+public class MissingSchemaException extends StructuredEntityException {
 }

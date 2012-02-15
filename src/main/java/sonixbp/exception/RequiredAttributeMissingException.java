@@ -1,5 +1,5 @@
 package sonixbp.exception;
 
-public class RequiredAttributeMissingException extends RuntimeException {
+public class RequiredAttributeMissingException extends StructuredEntityException {
 
 }
