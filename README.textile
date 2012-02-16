@@ -1,7 +1,7 @@
-Entity Store API
+h1.*Entity Store API*
 ----------------------------------------
 
-What is an Entity?
+*What is an Entity?*
 
 - An entity is nothing more than a container pojo with an id, timstamp,
 type, attributes, and relationships.
@@ -12,7 +12,7 @@ a single person can have multiple attributes for their "interests".
 - The attributes/relationships are represente using instances of EValue objects.
 
 
-How are Entities manipulated?
+*How are Entities manipulated?*
 
 - Entities are manipulated through an implementation of the EntityService interface. 
 - The EntityService interface acts as an abstraction for the storage data access layer so that Entities can interact with 
@@ -21,7 +21,7 @@ the storage mechanism in a meaningful way (i.e. querying objects and not single 
 - The EntityService provides methods for manipulating both entities and attributes/relationships associated to entities.
 
 
-What can I do with the Entity Web Service?
+*What can I do with the Entity Web Service?*
 
 - The Entity Web Service provides a meaningful way for javascript and webapps to interact with an EntityService implementation by way of
 HTTP requests. 
@@ -30,7 +30,7 @@ HTTP requests.
 
 
 
-How can we structure & validate an unstructured entity?
+*How can we structure & validate an unstructured entity?*
 
 - By default, attributes/relationships on an Entity are unstructured, this means any attributes/relationships can be added/removed at
 any time and there's no way to force that an entity have a certain set of attributes/relationships upon saving/updating.
@@ -42,12 +42,12 @@ allowing runtime validation to be possible.
 - When trying to add/remove/update any attributes/relationships which violate a constraint in the schema, the proper runtime exceptions will be thrown.
 
 
-Where do we define the structure of a StructuredEntity?
+*Where do we define the structure of a StructuredEntity?*
 
 - In the src/main/resources of cyberpilot-common, you will find a schema.json file, this is where the schema definitions go to structure
 entities.
 - The schema.json file has the following format:
-{
+@{
 	activityGroup: {
 		
 		allowUndefinedAttributes:false,
@@ -71,13 +71,13 @@ entities.
 			}
 		]
 	}    
-}
+}@
 
 * In this schema.json, we have an entity that we structure of type "activityGroup", which is required to have a single attribute type, "ruleIds",
 of which there can be many values. It is also not possible to add any other attributes to this entity.
 
 
-How does a MutableEntity work? 
+*How does a MutableEntity work?*
 
 - A mutable entity has the ability to audit its changes throughout it's life scope as a java object.
 - The purpose of this functionality is two-fold:
