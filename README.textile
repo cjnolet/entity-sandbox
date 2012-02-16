@@ -47,34 +47,33 @@ allowing runtime validation to be possible.
 - In the src/main/resources of cyberpilot-common, you will find a schema.json file, this is where the schema definitions go to structure
 entities.
 - The schema.json file has the following format:
-<pre> {
-	activityGroup: {
+<pre> 
+{
+    activityGroup: {
 		
-		allowUndefinedAttributes:false,
-		allowUndefinedRelationships:false,
+        allowUndefinedAttributes:false,
+        allowUndefinedRelationships:false,
 		
-		attributes:[
-			{
-				name:'ruleIds',
-				required:true,
-				validationRegex:[A-Za-z0-9]+\-[A-Za-z0-9],
-				hasMany:true
-			}
-		],
+        attributes:[{
+        
+            name:'ruleIds',
+            required:true,
+            validationRegex:[A-Za-z0-9]+\-[A-Za-z0-9],
+            hasMany:true
+        }],
 		
-		relationships:[
-			{
-				name:'parent',
-				entityTypeConstraint:'activityGroup',
-				required:false,
-				hasMany:false
-			}
-		]
-	}    
+        relationships:[{
+            name:'parent',
+            entityTypeConstraint:'activityGroup',
+            required:false,
+            hasMany:false
+        }]
+    }    
 }
 </pre>
 * In this schema.json, we have an entity that we structure of type "activityGroup", which is required to have a single attribute type, "ruleIds",
 of which there can be many values. It is also not possible to add any other attributes to this entity.
+
 
 
 *How does a MutableEntity work?*
