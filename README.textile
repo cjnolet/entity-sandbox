@@ -47,7 +47,7 @@ allowing runtime validation to be possible.
 - In the src/main/resources of cyberpilot-common, you will find a schema.json file, this is where the schema definitions go to structure
 entities.
 - The schema.json file has the following format:
-<pre> 
+<code> 
 {
     activityGroup: {
 
@@ -70,7 +70,7 @@ entities.
         }]
     }    
 }
-</pre>
+</code>
 * In this schema.json, we have an entity that we structure of type "activityGroup", which is required to have a single attribute type, "ruleIds",
 of which there can be many values. It is also not possible to add any other attributes to this entity.
 
