@@ -2,13 +2,43 @@
 	activityGroup: {
 		
 		allowsUndefinedAttributes: false,
+		allowsUndefinedRelationships: false,
 		attributes: [{
 		
 				name:'ruleIds',
 				required:true
 				
-			},{
-				name:'name'
 		}]
-	}    
+	},
+	
+	empty: {
+		
+		allowsUndefinedAttributes: false,
+		allowsUndefinedRelationships: false
+	},
+
+	relationshipsAllowed: {
+		
+		allowsUndefinedAttributes: false,
+		allowsUndefinedRelationships: true
+	},
+
+	attributesAllowed: {
+		
+		allowsUndefinedAttributes: true,
+		allowsUndefinedRelationships: false
+	},
+	
+	attributeNotRequired: {
+
+		allowsUndefinedAttributes: false,
+		allowsUndefinedRelationships: false,
+		attributes: [{
+		
+				name:'ruleIds',
+				required:false
+		}]
+	}
+	
+	
 }

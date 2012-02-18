@@ -1,16 +1,16 @@
 package sonixbp.memento;
 
-import sonixbp.domain.EValue;
+import sonixbp.domain.Tuple;
 
 public class Memento {
 
-    private EValue value;
+    private Tuple value;
 
-    public Memento(EValue value) {
-        this.value = new EValue(value);
+    public Memento(Tuple value) {
+        this.value = new Tuple(value);
     }
 
-    public EValue getValue() {
+    public Tuple getValue() {
         return value;
     }
 }

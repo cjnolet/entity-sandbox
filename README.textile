@@ -71,6 +71,7 @@ entities.
     }    
 }
 </code>
+
 * In this schema.json, we have an entity that we structure of type "activityGroup", which is required to have a single attribute type, "ruleIds",
 of which there can be many values. It is also not possible to add any other attributes to this entity.
 

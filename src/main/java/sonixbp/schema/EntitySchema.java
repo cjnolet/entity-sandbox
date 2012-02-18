@@ -44,9 +44,11 @@ public class EntitySchema {
 	
 	public String getDefaultValueForAttribute(String attribute) {
 		
-		for(SchemaAttribute sAttr : attributes) {
-			if(sAttr.getName().equals(attribute)) {
-				return sAttr.getDefaultValue();
+		if(attributes != null) {
+			for(SchemaAttribute sAttr : attributes) {
+				if(sAttr.getName().equals(attribute)) {
+					return sAttr.getDefaultValue();
+				}
 			}
 		}
 		
@@ -55,20 +57,25 @@ public class EntitySchema {
 	
 	public SchemaAttribute getAttribute(String attribute) {
 
-		for(SchemaAttribute sAttr : attributes) {
-			if(sAttr.getName().equals(attribute)) {
-				return sAttr;
+		if(attributes != null) {
+			for(SchemaAttribute sAttr : attributes) {
+				if(sAttr.getName().equals(attribute)) {
+					return sAttr;
+				}
 			}
 		}
-		
+
 		return null;
 	}
 	
 	public SchemaRelationship getRelationship(String relationship) {
 
-		for(SchemaRelationship sRel : relationships) {
-			if(sRel.getName().equals(relationship)) {
-				return sRel;
+		if(relationships != null) {
+		
+			for(SchemaRelationship sRel : relationships) {
+				if(sRel.getName().equals(relationship)) {
+					return sRel;
+				}
 			}
 		}
 		
@@ -81,7 +88,9 @@ public class EntitySchema {
 
         try {
         	
-        	InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(schemaFilename);
+        	InputStream is = Thread.currentThread()
+        						.getContextClassLoader()
+        						.getResourceAsStream(schemaFilename);
         	
         	if(is == null) {
         		throw new MissingSchemaException();
@@ -102,6 +111,8 @@ public class EntitySchema {
             Map<String, EntitySchema> schema = null;
             try {
                schema = gson.fromJson(schemaDefinition, listType);
+               
+               System.out.println(schemaDefinition);
             }
             
             catch(Exception e) {

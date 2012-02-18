@@ -5,7 +5,6 @@ import java.util.Set;
 import sonixbp.memento.Caretaker;
 import sonixbp.service.EntityService;
 
-@Deprecated
 public class MutableEntity implements BasicEntity, BatchedMutable {
 
 	EntityService persistentService;
@@ -48,24 +47,24 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		return entity.getType();
 	}
 
-	public Set<EValue> getFullAttribute(String attribute) {
+	public Set<Attribute> getFullAttribute(String attribute) {
 		
 		return entity.getFullAttribute(attribute);
 	}
 
-	public EValue getSingleAttribute(String attribute) {
+	public Attribute getSingleAttribute(String attribute) {
 		return entity.getSingleAttribute(attribute);
 	}
 
-	public Set<EValue> getFullRelationship(String relationship) {
+	public Set<Relationship> getFullRelationship(String relationship) {
 		return entity.getFullRelationship(relationship);
 	}
 
-	public EValue getSingleRelationship(String relationship) {
+	public Relationship getSingleRelationship(String relationship) {
 		return entity.getSingleRelationship(relationship);
 	}
 
-	public void addAttribute(EValue attribute) {
+	public void addAttribute(Attribute attribute) {
 		
 		try {
 			
@@ -80,7 +79,7 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		}
 	}
 
-	public void addRelationship(EValue relationship) {
+	public void addRelationship(Relationship relationship) {
 		
 		try {
 			
@@ -106,7 +105,7 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		return entity.getRelationshipKeySet();
 	}
 
-	public void updateAttribute(EValue attribute) {
+	public void updateAttribute(Attribute attribute) {
 		
 		try {
 			
@@ -121,7 +120,7 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		}
 	}
 
-	public void updateRelationship(EValue relationship) {
+	public void updateRelationship(Relationship relationship) {
 		
 		try {
 			
@@ -136,7 +135,7 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		}
 	}
 
-	public void deleteAttribute(EValue attribute) {
+	public void deleteAttribute(Attribute attribute) {
 		
 		try {
 			
@@ -152,7 +151,7 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		
 	}
 
-	public void deleteRelationship(EValue relationship) {
+	public void deleteRelationship(Relationship relationship) {
 		
 		try {
 			entity.deleteRelationship(relationship);
@@ -167,5 +166,7 @@ public class MutableEntity implements BasicEntity, BatchedMutable {
 		}
 
 	}
+
+
 
 }

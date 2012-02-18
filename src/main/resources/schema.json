@@ -1,10 +1,12 @@
 {
+
 	activityGroup: {
 		
-		attributes:[
+		displayName:'Activity Group',
+		allowsUndefinedAttributes:true,
+		attributes: [
 			{
 				name:'ruleIds',
-				type:'attribute',
 				required:true,
 				hasMany:true
 			}

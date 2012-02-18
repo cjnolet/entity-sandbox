@@ -1,12 +1,14 @@
 package sonixbp.memento;
 
-import sonixbp.domain.BasicEntity;
-import sonixbp.domain.EValue;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import sonixbp.domain.Attribute;
+import sonixbp.domain.BasicEntity;
+import sonixbp.domain.Tuple;
+import sonixbp.domain.Relationship;
 
 public class Caretaker {
 
@@ -26,9 +28,9 @@ public class Caretaker {
     private void capture(BasicEntity entity) {
         Set<String> attrKeys = entity.getAttributeKeySet();
         for (String key : attrKeys) {
-            Set<EValue> attrs = entity.getFullAttribute(key);
+            Set<Attribute> attrs = entity.getFullAttribute(key);
             Set<Memento> mementos = new HashSet<Memento>();
-            for (EValue attr : attrs) {
+            for (Tuple attr : attrs) {
                 mementos.add(new Memento(attr));
             }
 
@@ -37,9 +39,9 @@ public class Caretaker {
 
         Set<String> relKeys = entity.getRelationshipKeySet();
         for (String key : relKeys) {
-            Set<EValue> rels = entity.getFullRelationship(key);
+            Set<Relationship> rels = entity.getFullRelationship(key);
             Set<Memento> mementos = new HashSet<Memento>();
-            for (EValue rel : rels) {
+            for (Tuple rel : rels) {
                 mementos.add(new Memento(rel));
             }
 

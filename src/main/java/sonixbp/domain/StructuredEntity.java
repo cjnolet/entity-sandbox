@@ -10,7 +10,6 @@ import sonixbp.schema.EntitySchema;
 import sonixbp.schema.EntitySchemaValidator;
 import sonixbp.util.EntitySchemaUtils;
 
-@Deprecated
 public class StructuredEntity implements BasicEntity, Validateable {
 
     BasicEntity entity;
@@ -36,9 +35,9 @@ public class StructuredEntity implements BasicEntity, Validateable {
         return entity.getType();
     }
 
-	public Set<EValue> getFullAttribute(String attribute) {
+	public Set<Attribute> getFullAttribute(String attribute) {
 
-		Set<EValue> values = entity.getFullAttribute(attribute);
+		Set<Attribute> values = entity.getFullAttribute(attribute);
 		
 		if(schema == null) {
 
@@ -57,11 +56,9 @@ public class StructuredEntity implements BasicEntity, Validateable {
 				
 				if(defaultValue != null) {
 					
-					Set<EValue> retVals = new HashSet<EValue>();
+					Set<Attribute> retVals = new HashSet<Attribute>();
 					
-					EValue value = new EValue();
-					value.setKey(attribute);
-					value.setValue(defaultValue);
+					Attribute value = new Attribute(attribute, defaultValue);
 					
 					retVals.add(value);
 					
@@ -83,11 +80,11 @@ public class StructuredEntity implements BasicEntity, Validateable {
 		}
 	}
 
-	public EValue getSingleAttribute(String attribute) {
+	public Attribute getSingleAttribute(String attribute) {
 		
 		// if the requested attribute doesn't exist, throw
 		// an AttributeNotDefinedException
-		Set<EValue> values = entity.getFullAttribute(attribute);
+		Set<Attribute> values = entity.getFullAttribute(attribute);
 		
 		if(schema == null) {
 
@@ -106,9 +103,7 @@ public class StructuredEntity implements BasicEntity, Validateable {
 				
 				if(defaultValue != null) {
 					
-					EValue value = new EValue();
-					value.setKey(attribute);
-					value.setValue(defaultValue);
+					Attribute value = new Attribute(attribute, defaultValue);
 					
 					return value;
 				}
@@ -122,15 +117,15 @@ public class StructuredEntity implements BasicEntity, Validateable {
 			}
 			
 			else {
-				return (EValue) values.toArray()[0];
+				return (Attribute) values.toArray()[0];
 			}
 		}
 	}
 
-	public Set<EValue> getFullRelationship(String relationship) {
+	public Set<Relationship> getFullRelationship(String relationship) {
 
 		
-		Set<EValue> values = entity.getFullRelationship(relationship);
+		Set<Relationship> values = entity.getFullRelationship(relationship);
 		
 		if(schema == null) {
 
@@ -155,9 +150,9 @@ public class StructuredEntity implements BasicEntity, Validateable {
 		}
 	}
 
-	public EValue getSingleRelationship(String relationship) {
+	public Relationship getSingleRelationship(String relationship) {
 
-		Set<EValue> values = entity.getFullAttribute(relationship);
+		Set<Relationship> values = entity.getFullRelationship(relationship);
 		
 		if(schema == null) {
 
@@ -176,12 +171,12 @@ public class StructuredEntity implements BasicEntity, Validateable {
 			}
 			
 			else {
-				return (EValue) values.toArray()[0];
+				return (Relationship) values.toArray()[0];
 			}
 		}	
 	}
 
-	public void addAttribute(EValue attribute) {
+	public void addAttribute(Attribute attribute) {
 		
 		if(schema.getAttribute(attribute.getKey()) == null) {
 			
@@ -193,7 +188,7 @@ public class StructuredEntity implements BasicEntity, Validateable {
 		}
 	}
 
-	public void addRelationship(EValue relationship) {
+	public void addRelationship(Relationship relationship) {
 		
 		if(schema.getRelationship(relationship.getKey()) == null) {
 			
@@ -263,25 +258,25 @@ public class StructuredEntity implements BasicEntity, Validateable {
 		return entity.getRelationshipKeySet();
 	}
 
-	public void updateAttribute(EValue attribute) {
+	public void updateAttribute(Attribute attribute) {
 		
 		entity.updateAttribute(attribute);
 		
 	}
 
-	public void updateRelationship(EValue relationship) {
+	public void updateRelationship(Relationship relationship) {
 		
 		entity.updateRelationship(relationship);
 		
 	}
 
-	public void deleteAttribute(EValue attribute) {
+	public void deleteAttribute(Attribute attribute) {
 		
 		entity.deleteAttribute(attribute);
 		
 	}
 
-	public void deleteRelationship(EValue relationship) {
+	public void deleteRelationship(Relationship relationship) {
 		entity.deleteRelationship(relationship);
 	}
 }

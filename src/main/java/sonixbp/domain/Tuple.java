@@ -3,7 +3,7 @@ package sonixbp.domain;
 import java.util.Date;
 import java.util.UUID;
 
-public class EValue {
+public class Tuple {
 
     String id;
 	String key;
@@ -11,17 +11,17 @@ public class EValue {
 	String classification;
 	Date timestamp;
 
-    public EValue() {
+    public Tuple() {
         id = UUID.randomUUID().toString();
     }
 
-    public EValue(String key, Object value) {
+    public Tuple(String key, Object value) {
         this();
         this.key = key;
         this.value = value;
     }
 
-    public EValue(EValue eValue){
+    public Tuple(Tuple eValue){
         this.key = eValue.getKey();
         this.value = eValue.getValue();
         this.id = eValue.getId();
