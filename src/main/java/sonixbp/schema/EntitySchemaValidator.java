@@ -9,11 +9,12 @@ import java.util.regex.Pattern;
 
 import sonixbp.domain.Attribute;
 import sonixbp.domain.BasicEntity;
-import sonixbp.domain.Tuple;
 import sonixbp.domain.Relationship;
+import sonixbp.domain.Tuple;
+import sonixbp.domain.Validateable;
 
 
-public class EntitySchemaValidator  {
+public class EntitySchemaValidator implements Validateable  {
 
 
 	private Map<Tuple, Set<ValidationErrorType>> validationErrors;

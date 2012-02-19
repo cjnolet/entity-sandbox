@@ -1,5 +1,5 @@
 package sonixbp.exception;
 
-public class MalformedSchemaException extends StructuredEntityException {
+public class MalformedSchemaException extends EntitySchemaException {
 
 }

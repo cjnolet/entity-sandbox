@@ -7,7 +7,6 @@
 		
 				name:'ruleIds',
 				required:true
-				
 		}]
 	},
 	
@@ -38,7 +37,52 @@
 				name:'ruleIds',
 				required:false
 		}]
+	},
+	
+	relationshipTypeConstraint: {
+
+		allowsUndefinedAttributes: false,
+		allowsUndefinedRelationships: false,
+		relationships: [{
+		
+				name:'ruleIds',
+				entityTypeConstraint:'alertingRule',
+				required:true,
+				hasMany:false
+		}]
+	},
+	
+		
+	singleton: {
+
+		allowsUndefinedAttributes: false,
+		allowsUndefinedRelationships: false,
+		attributes: [{
+		
+				name:'ruleIds',
+				required:true,
+				hasMany:false
+		},
+		{
+				name:'ruleIds2',
+				required:false,
+				hasMany:true
+		}],
+		
+		relationships: [{
+			
+				name:'rel1',
+				hasMany:false
+		},
+		{
+		
+				name:'rel2',
+				hasMany:true
+		}]
 	}
+	
+	
+	
 	
 	
 }

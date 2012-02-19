@@ -1,14 +1,11 @@
 package sonixbp.domain;
 
-import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import sonixbp.exception.AttributeNotDefinedException;
-import sonixbp.exception.MissingSchemaException;
-import sonixbp.exception.RequiredAttributeMissingException;
 import sonixbp.schema.EntitySchema;
 import sonixbp.schema.EntitySchemaValidator;
-import sonixbp.util.EntitySchemaUtils;
+import sonixbp.schema.ValidationErrorType;
 
 public class StructuredEntity implements BasicEntity, Validateable {
 
@@ -16,19 +13,11 @@ public class StructuredEntity implements BasicEntity, Validateable {
     EntitySchema schema;
     EntitySchemaValidator validator;
 
-    public StructuredEntity(BasicEntity entity) {
+    public StructuredEntity(String schemaFilename, BasicEntity entity) {
 
-        schema = EntitySchemaUtils.parseEntitySchemaFromResource(entity.getType());
-        this.entity = entity;
-
-        if(schema == null) {
-        	
-            throw new MissingSchemaException();
-        }
-        
-        else {
-            this.validator = new EntitySchemaValidator(schema, entity);
-        }
+		this.entity = entity;
+		this.schema = EntitySchema.parseEntitySchemaFromResource(schemaFilename, entity.getType());
+        this.validator = new EntitySchemaValidator(schema, entity);
     }
 
     public String getType() {
@@ -37,210 +26,35 @@ public class StructuredEntity implements BasicEntity, Validateable {
 
 	public Set<Attribute> getFullAttribute(String attribute) {
 
-		Set<Attribute> values = entity.getFullAttribute(attribute);
+		return entity.getFullAttribute(attribute);
 		
-		if(schema == null) {
-
-			throw new MissingSchemaException();
-		}
-		
-		else if(schema.getAttribute(attribute) == null) {
-			
-			throw new AttributeNotDefinedException();
-		}
-		
-		else {
-			if(values == null) {
-				
-				String defaultValue = schema.getDefaultValueForAttribute(attribute);
-				
-				if(defaultValue != null) {
-					
-					Set<Attribute> retVals = new HashSet<Attribute>();
-					
-					Attribute value = new Attribute(attribute, defaultValue);
-					
-					retVals.add(value);
-					
-					return retVals;
-				}
-				
-				else if(schema.getAttribute(attribute).isRequired()) {
-					
-					throw new RequiredAttributeMissingException();
-				}
-				
-				return null;
-				
-			}
-			
-			else {
-				return values;
-			}
-		}
 	}
 
 	public Attribute getSingleAttribute(String attribute) {
-		
-		// if the requested attribute doesn't exist, throw
-		// an AttributeNotDefinedException
-		Set<Attribute> values = entity.getFullAttribute(attribute);
-		
-		if(schema == null) {
-
-			throw new MissingSchemaException();
-		}
-		
-		else if(schema.getAttribute(attribute) == null) {
-			
-			throw new AttributeNotDefinedException();
-		}
-		
-		else {
-			if(values == null) {
-				
-				String defaultValue = schema.getDefaultValueForAttribute(attribute);
-				
-				if(defaultValue != null) {
-					
-					Attribute value = new Attribute(attribute, defaultValue);
-					
-					return value;
-				}
-				
-				else if(schema.getAttribute(attribute).isRequired()) {
-					
-					throw new RequiredAttributeMissingException();
-				}
-				
-				return null;
-			}
-			
-			else {
-				return (Attribute) values.toArray()[0];
-			}
-		}
+		return entity.getSingleAttribute(attribute);
 	}
 
 	public Set<Relationship> getFullRelationship(String relationship) {
 
-		
-		Set<Relationship> values = entity.getFullRelationship(relationship);
-		
-		if(schema == null) {
-
-			throw new MissingSchemaException();
-		}
-		
-		else if(schema.getRelationship(relationship) == null) {
-			
-			throw new AttributeNotDefinedException();
-		}
-		
-		else {
-			if(values == null && 
-					schema.getRelationship(relationship).isRequired()) {
-				
-				throw new RequiredAttributeMissingException();
-			}
-			
-			else {
-				return values;
-			}
-		}
+		return entity.getFullRelationship(relationship);
 	}
 
 	public Relationship getSingleRelationship(String relationship) {
-
-		Set<Relationship> values = entity.getFullRelationship(relationship);
-		
-		if(schema == null) {
-
-			throw new MissingSchemaException();
-		}
-		
-		else if(schema.getAttribute(relationship) == null) {
-			
-			throw new AttributeNotDefinedException();
-		}
-		
-		else {
-			if(values == null && schema.getRelationship(relationship).isRequired()) {
-				
-				throw new RequiredAttributeMissingException();
-			}
-			
-			else {
-				return (Relationship) values.toArray()[0];
-			}
-		}	
+		return entity.getSingleRelationship(relationship);
 	}
 
 	public void addAttribute(Attribute attribute) {
 		
-		if(schema.getAttribute(attribute.getKey()) == null) {
-			
-			throw new AttributeNotDefinedException();
-		}
-		
-		else {
-			entity.addAttribute(attribute);
-		}
+		entity.addAttribute(attribute);
 	}
 
 	public void addRelationship(Relationship relationship) {
-		
-		if(schema.getRelationship(relationship.getKey()) == null) {
-			
-			throw new AttributeNotDefinedException();
-		}
-		
-		else {
-			entity.addRelationship(relationship);
-		}
+		entity.addRelationship(relationship);
 	}
 	
 	public boolean validate() {
 
-		if(schema == null) {
-			
-			return false;
-		}
-		
-		else {
-			
-			return validator.validate();
-
-		}
-		
-//		// does each attribute exist in the schema?
-//		for(String attribute : getAttributeKeySet()) {
-//			if(schema.getAttribute(attribute) == null ||
-//					!schema.getAttribute(attribute)
-//						.getType().equals(AttributeType.attribute)) {
-//				
-//				return false;
-//			}
-//		}
-//
-//		// does each relationship exist in the schema?
-//		for(String relationship : getRelationshipKeySet()) {
-//			if(schema.getAttribute(relationship) == null ||
-//					!schema.getAttribute(relationship)
-//						.getType().equals(AttributeType.relationship)) {
-//				
-//				return false;
-//			}
-//		}
-//		
-//		// now we need to test if each attribute passes the regex
-//		
-//		
-//		// and test if each relationship passes the regex
-//		
-//		
-//		// test to make sure all required fields are satisfied
-
+		return validator.validate();
 	}
 	
 	public EntitySchemaValidator getValidator() {
@@ -278,5 +92,9 @@ public class StructuredEntity implements BasicEntity, Validateable {
 
 	public void deleteRelationship(Relationship relationship) {
 		entity.deleteRelationship(relationship);
+	}
+
+	public Map<Tuple, Set<ValidationErrorType>> getErrors() {
+		return validator.getErrors();
 	}
 }
