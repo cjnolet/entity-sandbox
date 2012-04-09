@@ -77,6 +77,7 @@
 		{
 		
 				name:'rel2',
+				required: true,
 				hasMany:true
 		}]
 	}
