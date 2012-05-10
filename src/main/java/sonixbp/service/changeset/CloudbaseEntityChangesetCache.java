@@ -2,6 +2,7 @@ package sonixbp.service.changeset;
 
 import cloudbase.core.client.*;
 import cloudbase.core.client.Scanner;
+import cloudbase.core.data.Key;
 import cloudbase.core.data.Mutation;
 import cloudbase.core.data.Range;
 import cloudbase.core.data.Value;
@@ -56,12 +57,16 @@ public class CloudbaseEntityChangesetCache implements EntityChangesetCache {
 
         scanner.setRange(range);
 
-        return new ChangesetIterator(scanner.iterator(), from.getHash(), to.getHash());
+        Iterator<Map.Entry<Key,Value>> iterator = scanner.iterator();
+        Map.Entry<Key,Value> entry = null;
+
+        while(iterator.hasNext() && !entry.getKey().getColumnFamily().toString().equals(from.getHash())) {
+            entry = iterator.next();
+        }
+
+        return new ChangesetIterator(iterator, to.getHash());
     }
 
-    public Iterator<Changeset> iterateChangesets(Changeset from) {
-        return null;
-    }
 
     public String indexedDate(Date date) {
         String time = Long.toString(date.getTime());

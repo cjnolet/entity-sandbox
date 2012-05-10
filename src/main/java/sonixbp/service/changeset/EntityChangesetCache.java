@@ -15,5 +15,4 @@ public interface EntityChangesetCache {
     void persistEntityChangeset(Entity entity);
 
     Iterator<Changeset> iterateChangesets(Changeset from, Changeset to) throws CBSecurityException, CBException;
-    Iterator<Changeset> iterateChangesets(Changeset from);
 }

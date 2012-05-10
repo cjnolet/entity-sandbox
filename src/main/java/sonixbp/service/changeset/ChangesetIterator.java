@@ -17,45 +17,43 @@ public class ChangesetIterator implements Iterator<Changeset> {
 
     Iterator<Map.Entry<Key,Value>> rowIterator;
 
-    boolean hashSeen = false;
-    String beginHash;
+    boolean stop;
     String endHash;
 
-    public ChangesetIterator(Iterator<Map.Entry<Key,Value>> rowIterator, String beginHash, String endHash) {
+    public ChangesetIterator(Iterator<Map.Entry<Key,Value>> rowIterator, String endHash) {
 
         this.rowIterator = rowIterator;
-        this.beginHash = beginHash;
         this.endHash = endHash;
     }
 
     public boolean hasNext() {
 
-        return rowIterator.hasNext();
+        if(!stop) {
+
+            return rowIterator.hasNext();
+        }
+
+        else {
+            return false;
+        }
     }
 
     public Changeset next() {
 
-        if(rowIterator.hasNext()) {
+        if(!stop && rowIterator.hasNext()) {
 
             Map.Entry<Key,Value> entry = rowIterator.next();
 
-            if(!hashSeen) {
-
-                // We may need to iterate just a tiny bit to find the row in question... given the millisecond precision
-                // of our timestamps, we shouldn't need to iterate much.
-                while(!entry.getKey().getColumnFamily().toString().equals(beginHash)) {
-
-                    entry = rowIterator.next();
-                }
-
-                hashSeen = true;
+            if(entry.getKey().getColumnFamily().toString().equals(entry)) {
+                stop = true;
             }
 
             return rowToChangeset(entry);
         }
 
         else {
-            throw new IterationInterruptedException();
+
+            return null;
         }
     }
 
