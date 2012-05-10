@@ -42,7 +42,7 @@ public class EntitySchemaUtils {
             }
             
             catch(Exception e) {
-            	throw new MalformedSchemaException();
+            	throw new MalformedSchemaException(SCHEMA_FILENAME);
             }
             
             if(schema != null) {

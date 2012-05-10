@@ -1,21 +1,13 @@
 package sonixbp.domain;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-/**
- * Created by IntelliJ IDEA.
- * User: cnolet
- * Date: Feb 7, 2012
- * Time: 8:41:02 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class Entity implements BasicEntity {
 	
 	private String type;
 	private String id;
+    private Date timestamp;
 	
 	private Map<String, Set<Attribute>> attributes;
 	private Map<String, Set<Relationship>> relationships;
@@ -27,6 +19,10 @@ public class Entity implements BasicEntity {
 		this.attributes = new HashMap<String,Set<Attribute>>();
 		this.relationships = new HashMap<String,Set<Relationship>>();
 	}
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
 	
     public String getType() {
         return type;

@@ -116,7 +116,7 @@ public class EntitySchema {
             }
             
             catch(Exception e) {
-            	throw new MalformedSchemaException();
+            	throw new MalformedSchemaException(schemaFilename);
             }
             
             if(schema != null) {

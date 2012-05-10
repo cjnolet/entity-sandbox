@@ -6,8 +6,8 @@ import java.util.Set;
 public interface BasicEntity {
 
     String getType();
-    
-    Set<Attribute> getFullAttribute(String attribute);
+
+     Set<Attribute> getFullAttribute(String attribute);
     Attribute getSingleAttribute(String attribute);
     
     Set<Relationship> getFullRelationship(String relationship);
