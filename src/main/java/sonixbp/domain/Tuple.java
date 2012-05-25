@@ -9,7 +9,6 @@ public class Tuple {
 	String key;
 	Object value;
 	String classification;
-	Date timestamp;
 
     public Tuple() {
         id = UUID.randomUUID().toString();
@@ -59,11 +58,4 @@ public class Tuple {
 		this.classification = classification;
 	}
 
-	public Date getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
 }

@@ -48,4 +48,17 @@ public class EntitySchemaTest {
 		
 		catch(MissingSchemaException e) {}
 	}
+
+    @Test
+    public void projectEuler() {
+
+        long factor1 = 600851475143L;
+
+        long currentFactor = 2;
+        while()
+
+
+
+        System.out.println(evenSum);
+    }
 }
