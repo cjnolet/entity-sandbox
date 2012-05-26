@@ -12,6 +12,7 @@ public class ACL {
     private Set<String> read;
     private Set<String> write;
     private Set<String> delete;
+    private Set<String> owner;
 
     public Set<String> getRead() {
         return read;
@@ -73,8 +74,8 @@ public class ACL {
             attribute.setMetadata(metadata);
         }
 
-        metadata.put(ACLConstants.FIELD_READONLY, getRead());
-        metadata.put(ACLConstants.FIELD_READWRITE, getWrite());
-        metadata.put(ACLConstants.FIELD_READWRITEDELETE, getDelete());
+        metadata.put(ACLConstants.FIELD_READ, getRead());
+        metadata.put(ACLConstants.FIELD_WRITE, getWrite());
+        metadata.put(ACLConstants.FIELD_DELETE, getDelete());
     }
 }

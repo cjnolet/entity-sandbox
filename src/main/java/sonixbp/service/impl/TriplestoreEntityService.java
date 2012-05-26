@@ -1,11 +1,22 @@
 package sonixbp.service.impl;
 
+import cloudbase.core.client.Connector;
 import sonixbp.domain.BasicEntity;
 import sonixbp.service.EntityService;
+import sonixbp.service.Triplestore;
 
 import java.util.Collection;
 
 public class TriplestoreEntityService implements EntityService {
+
+    @Deprecated
+    public TriplestoreEntityService(Connector connector) {
+
+    }
+
+    public TriplestoreEntityService(Triplestore triplestore) {
+
+    }
 
     public void save(BasicEntity entity) {
     }

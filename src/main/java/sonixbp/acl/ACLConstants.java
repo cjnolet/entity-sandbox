@@ -13,7 +13,9 @@ public class ACLConstants {
     public static String ACL_FILTER_FIELD_GROUPS= "aclFieldGroups";
 
     public static String FIELD_MODE = "MODE";
-    public static String FIELD_READONLY = "R";
-    public static String FIELD_READWRITE = "W";
-    public static String FIELD_READWRITEDELETE = "D";
+    public static String FIELD_READ = "R";
+    public static String FIELD_WRITE = "W";
+    public static String FIELD_DELETE = "D";
+    public static String FIELD_OWNER = "O";
+
 }

@@ -11,7 +11,7 @@ import java.util.*;
 
 public class CloudbaseTripleStoreACLFilter implements Filter {
 
-    private String mode = ACLConstants.FIELD_READONLY;
+    private String mode = ACLConstants.FIELD_READ;
     List<String> credentials = new LinkedList<String>();
 
     Gson gson;
@@ -27,9 +27,9 @@ public class CloudbaseTripleStoreACLFilter implements Filter {
                 String strMode = stringStringMap.get(ACLConstants.FIELD_MODE);
 
                 // first set the mode
-                if(strMode != null && strMode.equals(ACLConstants.FIELD_READONLY) ||
-                        strMode.equals(ACLConstants.FIELD_READWRITE) ||
-                        strMode.equals(ACLConstants.FIELD_READWRITEDELETE)) {
+                if(strMode != null && strMode.equals(ACLConstants.FIELD_READ) ||
+                        strMode.equals(ACLConstants.FIELD_WRITE) ||
+                        strMode.equals(ACLConstants.FIELD_DELETE)) {
                     mode = strMode;
                 }
 
