@@ -68,8 +68,9 @@ public class ChangesetIterator implements Iterator<Changeset> {
 
     private Changeset rowToChangeset(Map.Entry<Key,Value> row) {
 
-        return new Changeset(row.getKey().getColumnFamily().toString(),
-                new Date(Long.parseLong(row.getKey().getRow().toString())),
-                deserializeEntity(new String(row.getValue().get())));
+        return null;
+//        return new Changeset(row.getKey().getColumnFamily().toString(),
+//                new Date(Long.parseLong(row.getKey().getRow().toString())),
+//                deserializeEntity(new String(row.getValue().get())));
     }
 }
