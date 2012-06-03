@@ -5,7 +5,6 @@ import cloudbase.core.client.CBException;
 import cloudbase.core.client.CBSecurityException;
 import cloudbase.core.client.Connector;
 import cloudbase.core.client.ZooKeeperInstance;
-import cloudbase.core.util.ArgumentChecker;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;
@@ -21,6 +20,8 @@ import sonixbp.service.impl.CloudbaseTriplestore;
 import sonixbp.service.impl.TriplestoreEntityService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
 
@@ -34,6 +35,15 @@ public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
     private static final String INSTANCE_NAME = PREFIX + ".instanceName";
     private static final String ZOOKEEPERS = PREFIX + ".zooKeepers";
 
+    private static final int DEFAULT_BUFFER_SIZE = 500;
+    private static final String BUFFER_SIZE = ".bufferSize";
+
+    /**
+     * Sets the Cloudbase username/password on the job
+     * @param job
+     * @param username
+     * @param password
+     */
     public static void setOutputInfo(JobContext job, String username, byte[] password) {
 
         Configuration conf = job.getConfiguration();
@@ -41,6 +51,13 @@ public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
         conf.set(PASSWORD, new String(Base64.encodeBase64(password)));
         conf.setBoolean(OUTPUT_INFO_HAS_BEEN_SET, true);
     }
+
+    /**
+     * Sets the Zookeeper & Cloudbase Instance information on the job
+     * @param job
+     * @param instance
+     * @param zookeepers
+     */
     public static void setZookeeperInstance(JobContext job, String instance, String zookeepers) {
 
         Configuration conf = job.getConfiguration();
@@ -49,7 +66,18 @@ public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
         conf.setBoolean(INSTANCE_HAS_BEEN_SET, true);
     }
 
-    public ZooKeeperInstance getZookeeperInstance(JobContext job) {
+    public static void setBufferSize(JobContext job, int bufferSize) {
+
+        Configuration conf = job.getConfiguration();
+        conf.setInt(BUFFER_SIZE, bufferSize);
+    }
+
+    /**
+     * Builds a new Cloudbase Zookeeper Instance based on info that was set on the job
+     * @param job
+     * @return
+     */
+    protected ZooKeeperInstance getZookeeperInstance(JobContext job) {
 
         String instance = job.getConfiguration().get(INSTANCE_NAME);
         String zookeepers = job.getConfiguration().get(ZOOKEEPERS);
@@ -57,14 +85,29 @@ public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
         return new ZooKeeperInstance(instance, zookeepers);
     }
 
-    public String getUsername(JobContext job) {
+    /**
+     * Returns the Cloudbase Username that was set on the job
+     * @param job
+     * @return
+     */
+    protected String getUsername(JobContext job) {
         return job.getConfiguration().get(USERNAME);
     }
 
-    public byte[] getPassword(JobContext job) {
+    /**
+     * Returns the Cloudbase password (decoded from base64) that was set on the job
+     * @param job
+     * @return
+     */
+    protected byte[] getPassword(JobContext job) {
         return Base64.decodeBase64(job.getConfiguration().get(PASSWORD).getBytes());
     }
 
+    /**
+     * Builds the Gem Entity Service for saving the entities
+     * @param job
+     * @return
+     */
     public TriplestoreEntityService getEntityService(JobContext job) {
 
         Configuration conf = job.getConfiguration();
@@ -82,20 +125,33 @@ public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
         return new TriplestoreEntityService(triplestore);
     }
 
+    /**
+     * Builds a new Gem Entity Record Writer
+     * @param taskAttemptContext
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Override
     public RecordWriter<Text, BasicEntity> getRecordWriter(TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
 
         try {
 
-            return new GemEntityRecordWriter(taskAttemptContext);
+            return new GemCloudbaseTriplestoreEntityRecordWriter(taskAttemptContext);
         }
 
         catch(Exception e) {
 
-            throw new IOException("Error returning new GemEntityRecordWriter");
+            throw new IOException("Error returning new GemCloudbaseTriplestoreEntityRecordWriter");
         }
     }
 
+    /**
+     * Verifies that correct inputs are set so that the job can fail gracefully.
+     * @param job
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Override
     public void checkOutputSpecs(JobContext job) throws IOException, InterruptedException {
         Configuration conf = job.getConfiguration();
@@ -114,28 +170,71 @@ public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
         }
     }
 
+    /**
+     * Builds the empty output committer.
+     * @param taskAttemptContext
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Override
     public OutputCommitter getOutputCommitter(TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
 
        return new NullOutputFormat<Text, BasicEntity>().getOutputCommitter(taskAttemptContext);
     }
 
-    protected class GemEntityRecordWriter extends RecordWriter<Text, BasicEntity> {
+    /**
+     * Class for writing entities to the underlying entity service via a streamable output buffer
+     */
+    protected class GemCloudbaseTriplestoreEntityRecordWriter extends RecordWriter<Text, BasicEntity> {
 
         private EntityService entityService;
+        private int bufferSize = DEFAULT_BUFFER_SIZE;
 
-        public GemEntityRecordWriter(JobContext job) {
+        private BasicEntity[] entityBuffer;
+
+        public GemCloudbaseTriplestoreEntityRecordWriter(JobContext job) {
 
             this.entityService = getEntityService(job);
+            this.bufferSize = job.getConfiguration().getInt(BUFFER_SIZE, DEFAULT_BUFFER_SIZE);
+
+            entityBuffer = new BasicEntity[bufferSize];
         }
 
+        /**
+         *
+         * @param text
+         * @param basicEntity
+         * @throws IOException
+         * @throws InterruptedException
+         */
         @Override
         public void write(Text text, BasicEntity basicEntity) throws IOException, InterruptedException {
 
-            entityService.save(basicEntity);
+            try {
+
+                if(entityBuffer.length < bufferSize) {
+                    entityBuffer[entityBuffer.length] = basicEntity;
+                }
+
+                else {
+                    entityService.save(entityBuffer);
+                    entityBuffer = new BasicEntity[bufferSize];
+                }
+            }
+
+            catch(Exception e) {
+
+                throw new IOException("An error occurred saving entity <" + entityService.toString() + ">");
+            }
         }
 
         @Override
-        public void close(TaskAttemptContext context) throws IOException {}
+        public void close(TaskAttemptContext context) throws IOException {
+
+            if(entityBuffer.length > 0) {
+                entityService.save(entityBuffer);
+            }
+        }
     }
 }

@@ -21,6 +21,10 @@ public class TriplestoreEntityService implements EntityService {
     public void save(BasicEntity entity) {
     }
 
+    public void save(BasicEntity... entities) {
+
+    }
+
     public BasicEntity getByTypeAndId(String type, String id) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

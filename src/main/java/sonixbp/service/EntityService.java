@@ -7,6 +7,7 @@ import java.util.Collection;
 public interface EntityService {
 
     void save(BasicEntity entity);
+    void save(BasicEntity... entities);
 
     BasicEntity getByTypeAndId(String type, String id);
 
