@@ -202,7 +202,7 @@ public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
         }
 
         /**
-         *
+         * Write method adds entity to the buffer (and dumps the buffer to the entity service it's full)
          * @param text
          * @param basicEntity
          * @throws IOException
@@ -229,6 +229,11 @@ public class GemCloudbaseTriplestoreEntityOutputFormat extends OutputFormat {
             }
         }
 
+        /**
+         * Dumps any entities left in the buffer to the entity service.
+         * @param context
+         * @throws IOException
+         */
         @Override
         public void close(TaskAttemptContext context) throws IOException {
 
