@@ -1,7 +1,10 @@
-package sonixbp.datatype.mapping;
+package sonixbp.datatype.mapping.impl;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import sonixbp.datatype.mapping.GemTypeMapping;
+import sonixbp.datatype.mapping.GemTypeMappingsLoader;
+import sonixbp.datatype.mapping.json.GsonGemTypeMappingDeserializer;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

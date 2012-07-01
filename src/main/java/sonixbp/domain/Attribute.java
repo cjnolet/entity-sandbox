@@ -1,6 +1,6 @@
 package sonixbp.domain;
 
-import sonixbp.datatype.mapping.GemDatatypeMapperFactory;
+import sonixbp.datatype.mapping.GemDatatypeFactory;
 import sonixbp.datatype.type.GemType;
 import sonixbp.datatype.type.StringLiteralType;
 
@@ -26,6 +26,6 @@ public class Attribute extends Tuple {
 
     public GemType getAsGemType() {
 
-        return GemDatatypeMapperFactory.getInstance().buildGemTypeFromRawValue(value, gemType);
+        return GemDatatypeFactory.getInstance().buildGemTypeFromRawValue(value, gemType);
     }
 }

@@ -1,6 +1,7 @@
-package sonixbp.datatype.mapping;
+package sonixbp.datatype.mapping.json;
 
 import com.google.gson.*;
+import sonixbp.datatype.mapping.GemTypeMapping;
 import sonixbp.datatype.resolver.DatatypeResolver;
 import sonixbp.datatype.type.GemType;
 

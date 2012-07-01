@@ -1,5 +1,6 @@
 package sonixbp.datatype.mapping;
 
+import sonixbp.datatype.mapping.impl.GemJsonTypeMappingsLoader;
 import sonixbp.datatype.resolver.DatatypeResolver;
 import sonixbp.datatype.type.GemType;
 
@@ -7,21 +8,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GemDatatypeMapperFactory {
+public class GemDatatypeFactory {
 
     /**
      * The context is lazy loaded so that a new MappingsLoader can be injected first
      */
-    public static GemDatatypeMapperFactory context;
+    public static GemDatatypeFactory context;
 
     /**
      * Returns the singleton instance of the DatatypeMapperFactory
      * @return
      */
-    public static GemDatatypeMapperFactory getInstance() {
+    public static GemDatatypeFactory getInstance() {
 
         if(context == null) {
-            context = new GemDatatypeMapperFactory();
+            context = new GemDatatypeFactory();
         }
 
         return context;
@@ -54,7 +55,7 @@ public class GemDatatypeMapperFactory {
     /**
      * Mappings are loaded upon the singleton instance being created
      */
-    public GemDatatypeMapperFactory() {
+    public GemDatatypeFactory() {
 
         aliasMappings = new HashMap<String, GemTypeMapping>();
         typeMappings = new HashMap<Class<? extends GemType>, GemTypeMapping>();
