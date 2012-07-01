@@ -20,4 +20,9 @@ public class StringLiteralTypeResolver implements DatatypeResolver<StringLiteral
     public String serializeType(StringLiteralType value) {
         return value.get();
     }
+
+    @Override
+    public boolean validate(StringLiteralType value) {
+        return true;
+    }
 }

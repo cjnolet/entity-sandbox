@@ -43,6 +43,11 @@ public class IPTypeResolver implements DatatypeResolver<IPType>{
         return buffer;
     }
 
+    @Override
+    public boolean validate(IPType value) {
+        return true;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     private String padByte(String theByte) {
 
         int padAmount = 8 - theByte.length();

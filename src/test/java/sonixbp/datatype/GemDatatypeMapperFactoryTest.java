@@ -1,13 +1,14 @@
 package sonixbp.datatype;
 
 import org.junit.Test;
+import sonixbp.datatype.exception.GemTypeValidationFailedException;
 import sonixbp.datatype.mapping.GemDatatypeFactory;
 import sonixbp.datatype.type.*;
 
 public class GemDatatypeMapperFactoryTest {
 
     @Test
-    public void testMapperFactoryInitializes() {
+    public void testMapperFactoryInitializes() throws GemTypeValidationFailedException {
 
         GemDatatypeFactory.getInstance();
 
@@ -23,7 +24,6 @@ public class GemDatatypeMapperFactoryTest {
         System.out.println(GemDatatypeFactory.getInstance().buildGemTypeFromRawValue(500, IntType.class));
 
         System.out.println(GemDatatypeFactory.getInstance().buildGemTypeFromRawValue("TESTING!", StringLiteralType.class));
-
 
         System.out.println(GemDatatypeFactory.getInstance().mapRawValueToSerializedValue("172.32.90.1", IPType.class));
 

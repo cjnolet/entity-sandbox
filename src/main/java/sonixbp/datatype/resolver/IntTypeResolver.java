@@ -19,4 +19,9 @@ public class IntTypeResolver implements DatatypeResolver<IntType> {
     public String serializeType(IntType value) {
         return Integer.toString(value.get());
     }
+
+    @Override
+    public boolean validate(IntType value) {
+        return true;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

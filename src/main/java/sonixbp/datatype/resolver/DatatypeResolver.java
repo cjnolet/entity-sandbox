@@ -21,4 +21,7 @@ public interface DatatypeResolver<T extends GemType> {
      * @return
      */
     String serializeType(T value);
+
+
+    boolean validate(T value);
 }

@@ -1,5 +1,6 @@
 package sonixbp.datatype.mapping;
 
+import sonixbp.datatype.exception.GemTypeValidationFailedException;
 import sonixbp.datatype.mapping.impl.GemJsonTypeMappingsLoader;
 import sonixbp.datatype.resolver.DatatypeResolver;
 import sonixbp.datatype.type.GemType;
@@ -143,7 +144,8 @@ public class GemDatatypeFactory {
      * @param typeClazz
      * @return
      */
-    public String mapRawValueToSerializedValue(Object value, Class<? extends GemType> typeClazz) {
+    public String mapRawValueToSerializedValue(Object value, Class<? extends GemType> typeClazz)
+            throws GemTypeValidationFailedException {
 
         try {
             GemType gemType = typeClazz.newInstance();
@@ -152,9 +154,16 @@ public class GemDatatypeFactory {
             GemTypeMapping mapping = typeMappings.get(typeClazz);
             DatatypeResolver resolver = mapping.getResolverClass().newInstance();
 
-            String serializedValue = resolver.serializeType(gemType);
+            if(resolver.validate(gemType)) {
 
-            return serializedValue;
+                String serializedValue = resolver.serializeType(gemType);
+                return serializedValue;
+
+            }
+
+            else {
+                throw new GemTypeValidationFailedException();
+            }
 
         } catch (InstantiationException e) {
             e.printStackTrace();

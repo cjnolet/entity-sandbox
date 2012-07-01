@@ -24,7 +24,7 @@ public class GsonGemTypeMappingDeserializer implements JsonDeserializer<GemTypeM
       try {
 
           /**
-           * As long as Class.forName() is done once and cached, we shouldn't notice any decrease in performance
+           * As long as Class.forName() is done once and cached, we shouldn't notice any decrease in performance after initialization
            */
           Class<? extends GemType> gemType = (Class<? extends GemType>) Class.forName(object.get("typeClass").getAsString());
           Class<? extends DatatypeResolver> resolverType = (Class<? extends DatatypeResolver>)
