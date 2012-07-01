@@ -1,9 +1,8 @@
 package sonixbp.datatype.mapping;
 
-import sonixbp.datatype.resolver.DatatypeResolver;
+import sonixbp.datatype.resolver.GemTypeResolver;
 import sonixbp.datatype.type.GemType;
 import java.util.List;
-import java.util.Map;
 
 public class GemTypeMapping {
 
@@ -18,11 +17,11 @@ public class GemTypeMapping {
     private Class<? extends GemType> typeClass;
 
     /**
-     * Resolver should be a string representing a class on the classpath with type: Class<? extends DatatypeResolver>
+     * Resolver should be a string representing a class on the classpath with type: Class<? extends GemTypeResolver>
      */
-    private Class<? extends DatatypeResolver> resolverClass;
+    private Class<? extends GemTypeResolver> resolverClass;
 
-    public GemTypeMapping(List<String> aliases, Class<? extends GemType> typeClass, Class<? extends DatatypeResolver> resolverClass) {
+    public GemTypeMapping(List<String> aliases, Class<? extends GemType> typeClass, Class<? extends GemTypeResolver> resolverClass) {
         this.aliases = aliases;
         this.typeClass = typeClass;
         this.resolverClass = resolverClass;
@@ -36,7 +35,7 @@ public class GemTypeMapping {
         return typeClass;
     }
 
-    public Class<? extends DatatypeResolver> getResolverClass() {
+    public Class<? extends GemTypeResolver> getResolverClass() {
 
         return resolverClass;
     }

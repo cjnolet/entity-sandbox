@@ -5,7 +5,7 @@ import sonixbp.datatype.type.IntType;
 /**
  * Resolver for serializing and deserializing Integer types
  */
-public class IntTypeResolver implements DatatypeResolver<IntType> {
+public class IntTypeResolver implements GemTypeResolver<IntType> {
 
     @Override
     public IntType deserializeType(String value) {

@@ -3,11 +3,7 @@ package sonixbp.datatype.resolver;
 
 import sonixbp.datatype.type.IPType;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-public class IPTypeResolver implements DatatypeResolver<IPType>{
+public class IPTypeResolver implements GemTypeResolver<IPType> {
 
     @Override
     public IPType deserializeType(String value) {

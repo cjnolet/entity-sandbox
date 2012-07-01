@@ -5,7 +5,7 @@ import sonixbp.datatype.type.BooleanType;
 /**
  * Resolver for serializing & deserializing Boolean types
  */
-public class BooleanTypeResolver implements DatatypeResolver<BooleanType> {
+public class BooleanTypeResolver implements GemTypeResolver<BooleanType> {
 
     @Override
     public BooleanType deserializeType(String value) {

@@ -2,7 +2,7 @@ package sonixbp.datatype.resolver;
 
 import sonixbp.datatype.type.LongType;
 
-public class LongTypeResolver implements DatatypeResolver<LongType> {
+public class LongTypeResolver implements GemTypeResolver<LongType> {
 
 
     @Override

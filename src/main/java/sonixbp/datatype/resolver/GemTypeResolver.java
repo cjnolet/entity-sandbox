@@ -6,7 +6,7 @@ import sonixbp.datatype.type.GemType;
  * Maps a [typed] raw value into a serialized form and vice versa
  * @param <T>
  */
-public interface DatatypeResolver<T extends GemType> {
+public interface GemTypeResolver<T extends GemType> {
 
     /**
      * A deserialized form should return the raw object

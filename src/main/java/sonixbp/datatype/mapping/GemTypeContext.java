@@ -2,28 +2,28 @@ package sonixbp.datatype.mapping;
 
 import sonixbp.datatype.exception.GemTypeValidationFailedException;
 import sonixbp.datatype.mapping.impl.GemJsonTypeMappingsLoader;
-import sonixbp.datatype.resolver.DatatypeResolver;
+import sonixbp.datatype.resolver.GemTypeResolver;
 import sonixbp.datatype.type.GemType;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GemDatatypeFactory {
+public class GemTypeContext {
 
     /**
      * The context is lazy loaded so that a new MappingsLoader can be injected first
      */
-    public static GemDatatypeFactory context;
+    public static GemTypeContext context;
 
     /**
      * Returns the singleton instance of the DatatypeMapperFactory
      * @return
      */
-    public static GemDatatypeFactory getInstance() {
+    public static GemTypeContext getInstance() {
 
         if(context == null) {
-            context = new GemDatatypeFactory();
+            context = new GemTypeContext();
         }
 
         return context;
@@ -56,7 +56,7 @@ public class GemDatatypeFactory {
     /**
      * Mappings are loaded upon the singleton instance being created
      */
-    public GemDatatypeFactory() {
+    public GemTypeContext() {
 
         aliasMappings = new HashMap<String, GemTypeMapping>();
         typeMappings = new HashMap<Class<? extends GemType>, GemTypeMapping>();
@@ -125,7 +125,7 @@ public class GemDatatypeFactory {
         try {
 
             GemTypeMapping mapping = typeMappings.get(typeClazz);
-            DatatypeResolver resolver = mapping.getResolverClass().newInstance();
+            GemTypeResolver resolver = mapping.getResolverClass().newInstance();
 
             GemType resolvedVal = resolver.deserializeType(value);
             return resolvedVal;
@@ -152,7 +152,7 @@ public class GemDatatypeFactory {
             gemType.set(value);
 
             GemTypeMapping mapping = typeMappings.get(typeClazz);
-            DatatypeResolver resolver = mapping.getResolverClass().newInstance();
+            GemTypeResolver resolver = mapping.getResolverClass().newInstance();
 
             if(resolver.validate(gemType)) {
 

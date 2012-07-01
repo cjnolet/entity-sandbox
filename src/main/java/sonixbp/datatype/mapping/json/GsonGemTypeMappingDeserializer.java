@@ -2,7 +2,7 @@ package sonixbp.datatype.mapping.json;
 
 import com.google.gson.*;
 import sonixbp.datatype.mapping.GemTypeMapping;
-import sonixbp.datatype.resolver.DatatypeResolver;
+import sonixbp.datatype.resolver.GemTypeResolver;
 import sonixbp.datatype.type.GemType;
 
 import java.lang.reflect.Type;
@@ -27,7 +27,7 @@ public class GsonGemTypeMappingDeserializer implements JsonDeserializer<GemTypeM
            * As long as Class.forName() is done once and cached, we shouldn't notice any decrease in performance after initialization
            */
           Class<? extends GemType> gemType = (Class<? extends GemType>) Class.forName(object.get("typeClass").getAsString());
-          Class<? extends DatatypeResolver> resolverType = (Class<? extends DatatypeResolver>)
+          Class<? extends GemTypeResolver> resolverType = (Class<? extends GemTypeResolver>)
                   Class.forName(object.get("resolverClass").getAsString());
 
           List<String> finalAliases = new ArrayList<String>();

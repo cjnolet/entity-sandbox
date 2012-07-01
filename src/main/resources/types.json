@@ -21,4 +21,12 @@
     aliases: ["^^gem:ip"],
     typeClass: "sonixbp.datatype.type.IPType",
     resolverClass: "sonixbp.datatype.resolver.IPTypeResolver"
+},{
+    aliases: ["^^xsd:uri"],
+    typeClass: "sonixbp.datatype.type.URIType",
+    resolverClass: "sonixbp.datatype.resolver.URITypeResolver"
+},{
+    aliases: ["^^gem:rel"],
+    typeClass: "sonixbp.datatype.type.URIType",
+    resolverClass: "sonixbp.datatype.resolver.RelationshipTypeResolver"
 }]
