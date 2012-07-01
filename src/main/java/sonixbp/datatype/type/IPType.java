@@ -3,7 +3,7 @@ package sonixbp.datatype.type;
 /**
  * GemType for representing an IP
  */
-public class IPType implements GemType<String> {
+public class IPType extends AbstractGemType<String> {
 
     String value;
 

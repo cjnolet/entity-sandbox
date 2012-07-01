@@ -1,6 +1,5 @@
-package sonixbp.datatype;
+package sonixbp.datatype.mapping;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,7 +10,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * A MappingsLoader that extracts the list of GemTypeMapping objects from a json file on the classpath
+ * A MappingsLoader that extracts the list of GemTypeMapping objects from a json file on the classpath. The json
+ * file should contain a json array of objects in the following format:
+ * { aliases: ["@en"], typeClass: "sonixbp.datatype.type.StringLiteralType", resolverClass: "sonixbp.datatype.resolver.StringLiteralTypeResolver" }
  */
 public class GemJsonTypeMappingsLoader implements GemTypeMappingsLoader {
 
@@ -21,6 +22,10 @@ public class GemJsonTypeMappingsLoader implements GemTypeMappingsLoader {
         this.filename = filename;
     }
 
+    /**
+     * The mappings are loaded into a string and then parsed from GSON
+     * @return
+     */
     @Override
     public List<GemTypeMapping> loadMappings() {
 
@@ -39,17 +44,12 @@ public class GemJsonTypeMappingsLoader implements GemTypeMappingsLoader {
                 buffer = reader.readLine();
             }
 
-            System.out.println(mappings);
-
             GsonBuilder gson = new GsonBuilder();
             gson.registerTypeAdapter(GemTypeMapping.class, new GsonGemTypeMappingDeserializer());
 
             List<GemTypeMapping> typeMappings = null;
             try {
                typeMappings = gson.create().fromJson(mappings, listType);
-
-               System.out.println("TYPE MAPPINGS: " + typeMappings);
-
             }
 
             catch(Exception e) {

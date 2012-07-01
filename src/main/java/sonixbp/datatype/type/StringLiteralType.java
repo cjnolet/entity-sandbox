@@ -3,7 +3,7 @@ package sonixbp.datatype.type;
 /**
  * GemType wrapping a native java String type
  */
-public class StringLiteralType implements GemType<String> {
+public class StringLiteralType extends AbstractGemType<String> {
 
     String value;
 
@@ -20,9 +20,5 @@ public class StringLiteralType implements GemType<String> {
     @Override
     public void set(String value) {
         this.value = value;
-    }
-
-    public String toString() {
-        return value;
     }
 }

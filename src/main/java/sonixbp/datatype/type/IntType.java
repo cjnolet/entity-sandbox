@@ -3,13 +3,13 @@ package sonixbp.datatype.type;
 /**
  * GemType wrapping a native java Integer value
  */
-public class IntType implements GemType<Integer> {
+public class IntType extends AbstractGemType<Integer> {
 
     Integer value;
 
     @Override
     public String getAsString() {
-        return null;
+        return Integer.toString(value);
     }
 
     @Override

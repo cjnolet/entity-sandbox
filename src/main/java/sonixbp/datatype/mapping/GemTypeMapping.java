@@ -1,4 +1,4 @@
-package sonixbp.datatype;
+package sonixbp.datatype.mapping;
 
 import sonixbp.datatype.resolver.DatatypeResolver;
 import sonixbp.datatype.type.GemType;

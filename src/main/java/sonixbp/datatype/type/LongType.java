@@ -3,7 +3,7 @@ package sonixbp.datatype.type;
 /**
  * GemType wrapping a native java Long type
  */
-public class LongType implements GemType<Long> {
+public class LongType extends AbstractGemType<Long> {
 
     private Long value;
 

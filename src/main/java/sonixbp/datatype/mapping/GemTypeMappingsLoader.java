@@ -1,4 +1,4 @@
-package sonixbp.datatype;
+package sonixbp.datatype.mapping;
 
 import java.util.List;
 

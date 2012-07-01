@@ -1,6 +1,6 @@
 package sonixbp.domain;
 
-import sonixbp.datatype.GemDatatypeMapperFactory;
+import sonixbp.datatype.mapping.GemDatatypeMapperFactory;
 import sonixbp.datatype.type.GemType;
 import sonixbp.datatype.type.StringLiteralType;
 
