@@ -2,10 +2,7 @@ package sonixbp.datatype;
 
 import org.junit.Test;
 import sonixbp.datatype.mapping.GemDatatypeFactory;
-import sonixbp.datatype.type.BooleanType;
-import sonixbp.datatype.type.IntType;
-import sonixbp.datatype.type.LongType;
-import sonixbp.datatype.type.StringLiteralType;
+import sonixbp.datatype.type.*;
 
 public class GemDatatypeMapperFactoryTest {
 
@@ -28,6 +25,9 @@ public class GemDatatypeMapperFactoryTest {
         System.out.println(GemDatatypeFactory.getInstance().buildGemTypeFromRawValue("TESTING!", StringLiteralType.class));
 
 
+        System.out.println(GemDatatypeFactory.getInstance().mapRawValueToSerializedValue("172.32.90.1", IPType.class));
+
+        System.out.println(GemDatatypeFactory.getInstance().mapSerializedValueToGemType("10101100001000000101101000000001", IPType.class));
 
     }
 }

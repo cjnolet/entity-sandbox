@@ -10,11 +10,14 @@ public class StringLiteralTypeResolver implements DatatypeResolver<StringLiteral
 
     @Override
     public StringLiteralType deserializeType(String value) {
-        return null;
+
+        StringLiteralType type = new StringLiteralType();
+        type.set(value);
+        return type;
     }
 
     @Override
     public String serializeType(StringLiteralType value) {
-        return null;
+        return value.get();
     }
 }
