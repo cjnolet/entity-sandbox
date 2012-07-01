@@ -1,0 +1,23 @@
+[{
+    aliases: ["^^xsd:int"],
+    typeClass: "sonixbp.datatype.type.IntType",
+    resolverClass: "sonixbp.datatype.resolver.IntTypeResolver"
+},{
+
+    aliases: ["^^xsd:long"],
+    typeClass: "sonixbp.datatype.type.LongType",
+    resolverClass: "sonixbp.datatype.resolver.LongTypeResolver"
+
+},{
+
+    aliases: ["^^xsd:boolean"],
+    typeClass: "sonixbp.datatype.type.BooleanType",
+    resolverClass: "sonixbp.datatype.resolver.BooleanTypeResolver"
+
+},{
+
+    aliases: ["@en"],
+    typeClass: "sonixbp.datatype.type.StringLiteralType",
+    resolverClass: "sonixbp.datatype.resolver.StringLiteralTypeResolver"
+
+}]
