@@ -1,28 +1,31 @@
 package sonixbp.datatype.resolver;
 
+import sonixbp.datatype.type.GemType;
 import sonixbp.datatype.type.URIType;
 
-/**
- * Created by IntelliJ IDEA.
- * User: cnolet
- * Date: 7/1/12
- * Time: 11:44 AM
- * To change this template use File | Settings | File Templates.
- */
+import java.net.URI;
+import java.net.URISyntaxException;
+
+
 public class URITypeResolver implements GemTypeResolver<URIType> {
 
     @Override
     public URIType deserializeType(String value) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+
+        URIType type = new URIType();
+        type.set(value);
+
+        return type;
     }
 
     @Override
     public String serializeType(URIType value) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return value.get().toString();
     }
 
     @Override
     public boolean validate(URIType value) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+
+        return true;
     }
 }

@@ -17,6 +17,7 @@ public class RelationshipTypeResolver implements GemTypeResolver<URIType>{
 
     @Override
     public boolean validate(URIType value) {
-        return false;
+
+        return true;
     }
 }
