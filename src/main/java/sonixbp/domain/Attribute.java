@@ -26,6 +26,6 @@ public class Attribute extends Tuple {
 
     public GemType getAsGemType() {
 
-        return GemTypeContext.getInstance().buildGemTypeFromRawValue(value, gemType);
+        return GemTypeContext.getInstance().buildGemType(value, gemType);
     }
 }

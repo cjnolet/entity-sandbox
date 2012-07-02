@@ -1,5 +1,7 @@
 package sonixbp.datatype.mapping;
 
+import sonixbp.datatype.exception.GemTypeDeserializationFailedException;
+import sonixbp.datatype.exception.GemTypeSerializationFailedException;
 import sonixbp.datatype.exception.GemTypeValidationFailedException;
 import sonixbp.datatype.mapping.impl.GemJsonTypeMappingsLoader;
 import sonixbp.datatype.resolver.GemTypeResolver;
@@ -100,7 +102,7 @@ public class GemTypeContext {
      * @param gemType
      * @return
      */
-    public GemTypeMapping getGemTypeMappingFromGemTypeClass(Class<? extends GemType> gemType) {
+    public GemTypeMapping getGemTypeMappingFromTypeClass(Class<? extends GemType> gemType) {
         return typeMappings.get(gemType);
     }
 
@@ -120,7 +122,8 @@ public class GemTypeContext {
      * @param typeClazz
      * @return
      */
-    public GemType mapSerializedValueToGemType(String value, Class<? extends GemType> typeClazz) {
+    public GemType deserialize(String value, Class<? extends GemType> typeClazz)
+            throws GemTypeDeserializationFailedException {
 
         try {
 
@@ -144,12 +147,11 @@ public class GemTypeContext {
      * @param typeClazz
      * @return
      */
-    public String mapRawValueToSerializedValue(Object value, Class<? extends GemType> typeClazz)
-            throws GemTypeValidationFailedException {
+    public String serialize(Object value, Class<? extends GemType> typeClazz)
+            throws GemTypeSerializationFailedException, GemTypeValidationFailedException {
 
         try {
-            GemType gemType = typeClazz.newInstance();
-            gemType.set(value);
+            GemType gemType = buildGemType(value, typeClazz);
 
             GemTypeMapping mapping = typeMappings.get(typeClazz);
             GemTypeResolver resolver = mapping.getResolverClass().newInstance();
@@ -180,7 +182,7 @@ public class GemTypeContext {
      * @param typeClazz
      * @return
      */
-    public GemType buildGemTypeFromRawValue(Object value, Class<? extends GemType> typeClazz) {
+    public GemType buildGemType(Object value, Class<? extends GemType> typeClazz) {
 
         try {
 
@@ -198,14 +200,3 @@ public class GemTypeContext {
         return null;
     }
 }
-
-//
-//Triple:
-//- serialized form in cloudbase row
-//- has rdf type mapped to a string
-//* We need the ability to new up an attribute, deserialize the value, and provide the gem type (for returning the native object)
-//
-//
-//Entity
-//- needs a gem defined type on each attribute so that the object can be serialized to the row
-//* When the entity is written out, the gem type needs to serialize the value and a mapping needs to be provided for the triple
