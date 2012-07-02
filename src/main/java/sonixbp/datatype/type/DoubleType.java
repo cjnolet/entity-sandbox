@@ -1,23 +1,22 @@
 package sonixbp.datatype.type;
 
-import java.net.URI;
 
-public class URIType extends AbstractGemType<String> {
+public class DoubleType extends AbstractGemType<Double> {
 
-    String value;
+    Double value;
 
     @Override
     public String getAsString() {
+        return Double.toString(value);
+    }
+
+    @Override
+    public Double get() {
         return value;
     }
 
     @Override
-    public String get() {
-        return value;
-    }
-
-    @Override
-    public void set(String value) {
+    public void set(Double value) {
         this.value = value;
     }
 }

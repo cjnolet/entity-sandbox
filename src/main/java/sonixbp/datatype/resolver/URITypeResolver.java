@@ -26,6 +26,12 @@ public class URITypeResolver implements GemTypeResolver<URIType> {
     @Override
     public boolean validate(URIType value) {
 
+        try {
+            URI uri = new URI(value.get());
+        } catch (URISyntaxException e) {
+            return false;
+        }
+
         return true;
     }
 }

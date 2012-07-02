@@ -6,13 +6,14 @@ import sonixbp.datatype.type.StringLiteralType;
 
 import java.util.Map;
 
-public class Attribute extends Tuple {
+
+public class Attribute<T extends GemType> extends Tuple {
 
     Map<String,Object> metadata;
 
     Class<? extends GemType> gemType = StringLiteralType.class;
 
-	public Attribute(String key, Object value) {
+	public Attribute(String key, T value) {
 		super(key, value);
 	}
 

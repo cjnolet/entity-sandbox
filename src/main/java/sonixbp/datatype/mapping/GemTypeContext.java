@@ -22,7 +22,7 @@ public class GemTypeContext {
      * Returns the singleton instance of the DatatypeMapperFactory
      * @return
      */
-    public static GemTypeContext getInstance() {
+    public static synchronized GemTypeContext getInstance() {
 
         if(context == null) {
             context = new GemTypeContext();

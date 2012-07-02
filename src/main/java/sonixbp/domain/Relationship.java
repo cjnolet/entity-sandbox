@@ -1,8 +1,10 @@
 package sonixbp.domain;
 
-public class Relationship extends Tuple{
+import sonixbp.datatype.type.URIType;
+
+public class Relationship extends Attribute<URIType> {
 	
-	public Relationship(String key, Object value, String type) {
+	public Relationship(String key, URIType value, String type) {
 		super(key, value);
 		this.type = type;
 	}
@@ -17,5 +19,4 @@ public class Relationship extends Tuple{
 	public void setType(String type) {
 		this.type = type;
 	}
-
 }
