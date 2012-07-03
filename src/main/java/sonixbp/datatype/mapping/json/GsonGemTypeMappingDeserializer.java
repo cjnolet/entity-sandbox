@@ -3,7 +3,6 @@ package sonixbp.datatype.mapping.json;
 import com.google.gson.*;
 import sonixbp.datatype.mapping.GemTypeMapping;
 import sonixbp.datatype.resolver.GemTypeResolver;
-import sonixbp.datatype.type.GemType;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -21,12 +20,17 @@ public class GsonGemTypeMappingDeserializer implements JsonDeserializer<GemTypeM
       JsonObject object = json.getAsJsonObject();
       JsonArray aliases = object.get("aliases").getAsJsonArray();
 
+
+
       try {
 
           /**
            * As long as Class.forName() is done once and cached, we shouldn't notice any decrease in performance after initialization
            */
-          Class<? extends GemType> gemType = (Class<? extends GemType>) Class.forName(object.get("typeClass").getAsString());
+//          Class gemType = Class.forName(object.get("typeClass").getAsString());
+//
+//          System.out.println("GEMTYPE: " + gemType);
+
           Class<? extends GemTypeResolver> resolverType = (Class<? extends GemTypeResolver>)
                   Class.forName(object.get("resolverClass").getAsString());
 
@@ -35,7 +39,7 @@ public class GsonGemTypeMappingDeserializer implements JsonDeserializer<GemTypeM
             finalAliases.add(aliases.get(i).getAsString());
           }
 
-          GemTypeMapping mapping =  new GemTypeMapping(finalAliases, gemType, resolverType);
+          GemTypeMapping mapping =  new GemTypeMapping(finalAliases, resolverType);
 
           return mapping;
 

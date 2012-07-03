@@ -1,26 +1,22 @@
 package sonixbp.datatype.resolver;
 
-import sonixbp.datatype.type.BooleanType;
-
 /**
  * Resolver for serializing & deserializing Boolean types
  */
-public class BooleanTypeResolver implements GemTypeResolver<BooleanType> {
+public class BooleanTypeResolver implements GemTypeResolver<Boolean> {
 
     @Override
-    public BooleanType deserializeType(String value) {
-        BooleanType type = new BooleanType();
-        type.set(Boolean.parseBoolean(value));
-        return type;
+    public Boolean deserializeType(String value) {
+        return Boolean.parseBoolean(value);
     }
 
     @Override
-    public String serializeType(BooleanType value) {
-        return Boolean.toString(value.get());
+    public String serializeType(Boolean value) {
+        return Boolean.toString(value);
     }
 
     @Override
-    public boolean validate(BooleanType value) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean validate(Boolean value) {
+        return true;
     }
 }

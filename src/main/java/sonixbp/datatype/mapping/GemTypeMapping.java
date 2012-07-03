@@ -1,7 +1,8 @@
 package sonixbp.datatype.mapping;
 
 import sonixbp.datatype.resolver.GemTypeResolver;
-import sonixbp.datatype.type.GemType;
+
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class GemTypeMapping {
@@ -14,30 +15,49 @@ public class GemTypeMapping {
     /**
      * The GemType for which the aliases map to/from
      */
-    private Class<? extends GemType> typeClass;
+    private Class typeClass;
 
     /**
      * Resolver should be a string representing a class on the classpath with type: Class<? extends GemTypeResolver>
      */
     private Class<? extends GemTypeResolver> resolverClass;
 
-    public GemTypeMapping(List<String> aliases, Class<? extends GemType> typeClass, Class<? extends GemTypeResolver> resolverClass) {
+    public GemTypeMapping(List<String> aliases, Class<? extends GemTypeResolver> resolverClass) {
         this.aliases = aliases;
-        this.typeClass = typeClass;
         this.resolverClass = resolverClass;
+        this.typeClass = getParameterizedTypeFromResolver();
+
+        System.out.println(toString());
     }
 
     public List<String> getAliases() {
         return aliases;
     }
 
-    public Class<? extends GemType> getTypeClass() {
+    public Class getTypeClass() {
         return typeClass;
     }
 
     public Class<? extends GemTypeResolver> getResolverClass() {
 
         return resolverClass;
+    }
+
+    public Class getParameterizedTypeFromResolver() {
+
+        try {
+
+            /**
+             * The method that returns the deserialized version of the class should be the type we use to bind it
+             */
+           Method method = getResolverClass().getMethod("deserializeType", String.class);
+           return method.getReturnType();
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        return null;
     }
 
     public String toString() {

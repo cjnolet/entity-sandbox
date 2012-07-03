@@ -1,32 +1,34 @@
 [{
-    aliases: ["^^xsd:int"],
-    typeClass: "sonixbp.datatype.type.IntType",
+    aliases: ["^^xsd:intr", "http://www.w3.org/2001/XMLSchema#int"],
     resolverClass: "sonixbp.datatype.resolver.IntTypeResolver"
 },{
     aliases: ["^^xsd:long"],
-    typeClass: "sonixbp.datatype.type.LongType",
     resolverClass: "sonixbp.datatype.resolver.LongTypeResolver"
-
 },{
     aliases: ["^^xsd:boolean"],
-    typeClass: "sonixbp.datatype.type.BooleanType",
     resolverClass: "sonixbp.datatype.resolver.BooleanTypeResolver"
-
 },{
-    aliases: ["@en"],
-    typeClass: "sonixbp.datatype.type.StringLiteralType",
+    aliases: ["^^xsd:string", "^^xsd:language"],
     resolverClass: "sonixbp.datatype.resolver.StringLiteralTypeResolver"
-
+},{
+    aliases: ["^^xsd:double"],
+    resolverClass: "sonixbp.datatype.resolver.DoubleTypeResolver"
 },{
     aliases: ["^^gem:ip"],
-    typeClass: "sonixbp.datatype.type.IPType",
     resolverClass: "sonixbp.datatype.resolver.IPTypeResolver"
 },{
-    aliases: ["^^xsd:uri"],
-    typeClass: "sonixbp.datatype.type.URIType",
+    aliases: ["^^xsd:anyURI"],
     resolverClass: "sonixbp.datatype.resolver.URITypeResolver"
 },{
-    aliases: ["^^gem:rel"],
-    typeClass: "sonixbp.datatype.type.URIType",
-    resolverClass: "sonixbp.datatype.resolver.RelationshipTypeResolver"
+    aliases: ["^^xsd:byte"],
+    resolverClass: "sonixbp.datatype.resolver.ByteTypeResolver"
+},{
+    aliases: ["^^xsd:float"],
+    resolverClass: "sonixbp.datatype.resolver.FloatTypeResolver"
+},{
+    aliases: ["^^xsd:nonNegativeInteger"],
+    resolverClass: "sonixbp.datatype.resolver.NonNegativeIntegerResolver"
+},{
+    aliases: ["^^xsd:dateTime"],
+    resolverClass: "sonixbp.datatype.resolver.DateTypeResolver"
 }]

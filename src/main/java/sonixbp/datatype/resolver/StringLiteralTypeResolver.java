@@ -1,25 +1,20 @@
 package sonixbp.datatype.resolver;
 
-import sonixbp.datatype.type.StringLiteralType;
 
-
-public class StringLiteralTypeResolver implements GemTypeResolver<StringLiteralType> {
+public class StringLiteralTypeResolver implements GemTypeResolver<String> {
 
     @Override
-    public StringLiteralType deserializeType(String value) {
-
-        StringLiteralType type = new StringLiteralType();
-        type.set(value);
-        return type;
+    public String deserializeType(String value) {
+        return value;
     }
 
     @Override
-    public String serializeType(StringLiteralType value) {
-        return value.get();
+    public String serializeType(String value) {
+        return value;
     }
 
     @Override
-    public boolean validate(StringLiteralType value) {
+    public boolean validate(String value) {
         return true;
     }
 }

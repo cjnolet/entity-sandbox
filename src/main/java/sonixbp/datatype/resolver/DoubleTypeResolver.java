@@ -1,27 +1,20 @@
 package sonixbp.datatype.resolver;
 
 
-import sonixbp.datatype.mapping.GemTypeContext;
-import sonixbp.datatype.type.DoubleType;
-
-
-public class DoubleTypeResolver implements GemTypeResolver<DoubleType> {
+public class DoubleTypeResolver implements GemTypeResolver<Double> {
 
     @Override
-    public DoubleType deserializeType(String value) {
-        DoubleType type = new DoubleType();
-        type.set(Double.parseDouble(value));
-
-        return type;
+    public Double deserializeType(String value) {
+        return Double.parseDouble(value);
     }
 
     @Override
-    public String serializeType(DoubleType value) {
-        return Double.toString(value.get());
+    public String serializeType(Double value) {
+        return Double.toString(value);
     }
 
     @Override
-    public boolean validate(DoubleType value) {
+    public boolean validate(Double value) {
         return true;
     }
 }

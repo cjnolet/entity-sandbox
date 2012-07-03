@@ -1,10 +1,8 @@
 package sonixbp.domain;
 
-import sonixbp.datatype.type.URIType;
-
-public class Relationship extends Attribute<URIType> {
+public class Relationship extends Attribute {
 	
-	public Relationship(String key, URIType value, String type) {
+	public Relationship(String key, Object value, String type) {
 		super(key, value);
 		this.type = type;
 	}

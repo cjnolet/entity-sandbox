@@ -5,7 +5,6 @@ import sonixbp.datatype.exception.GemTypeSerializationFailedException;
 import sonixbp.datatype.exception.GemTypeValidationFailedException;
 import sonixbp.datatype.mapping.impl.GemJsonTypeMappingsLoader;
 import sonixbp.datatype.resolver.GemTypeResolver;
-import sonixbp.datatype.type.GemType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +52,7 @@ public class GemTypeContext {
     /**
      * Internal data structure optimized for quick lookup of gemTypeClass->GemTypeMapping
      */
-    private Map<Class<? extends GemType>, GemTypeMapping> typeMappings;
+    private Map<Class, GemTypeMapping> typeMappings;
 
     /**
      * Mappings are loaded upon the singleton instance being created
@@ -61,7 +60,7 @@ public class GemTypeContext {
     public GemTypeContext() {
 
         aliasMappings = new HashMap<String, GemTypeMapping>();
-        typeMappings = new HashMap<Class<? extends GemType>, GemTypeMapping>();
+        typeMappings = new HashMap<Class, GemTypeMapping>();
 
         loadMappings(loader);
     }
@@ -102,7 +101,7 @@ public class GemTypeContext {
      * @param gemType
      * @return
      */
-    public GemTypeMapping getGemTypeMappingFromTypeClass(Class<? extends GemType> gemType) {
+    public GemTypeMapping getGemTypeMappingFromTypeClass(Class gemType) {
         return typeMappings.get(gemType);
     }
 
@@ -112,7 +111,7 @@ public class GemTypeContext {
      * @param gemType
      * @return
      */
-    public String getAliasForGemType(Class<? extends GemType> gemType) {
+    public String getAliasForGemType(Class gemType) {
         return typeMappings.get(gemType).getAliases().get(0);
     }
 
@@ -122,7 +121,7 @@ public class GemTypeContext {
      * @param typeClazz
      * @return
      */
-    public GemType deserialize(String value, Class<? extends GemType> typeClazz)
+    public Object deserialize(String value, Class typeClazz)
             throws GemTypeDeserializationFailedException {
 
         try {
@@ -130,7 +129,7 @@ public class GemTypeContext {
             GemTypeMapping mapping = typeMappings.get(typeClazz);
             GemTypeResolver resolver = mapping.getResolverClass().newInstance();
 
-            GemType resolvedVal = resolver.deserializeType(value);
+            Object resolvedVal = resolver.deserializeType(value);
             return resolvedVal;
 
         } catch (InstantiationException e) {
@@ -144,21 +143,26 @@ public class GemTypeContext {
     /**
      * Returns the serialized version of a [deserialized] raw value
      * @param value
-     * @param typeClazz
      * @return
      */
-    public String serialize(Object value, Class<? extends GemType> typeClazz)
+    public String serialize(Object value)
             throws GemTypeSerializationFailedException, GemTypeValidationFailedException {
 
-        try {
-            GemType gemType = buildGemType(value, typeClazz);
 
-            GemTypeMapping mapping = typeMappings.get(typeClazz);
+        try {
+
+            GemTypeMapping mapping = typeMappings.get(value.getClass());
+
+            if(mapping == null) {
+                throw new RuntimeException("The type " + value.getClass().getName() + " is not supported by the Gem Type system");
+
+            }
+
             GemTypeResolver resolver = mapping.getResolverClass().newInstance();
 
-            if(resolver.validate(gemType)) {
+            if(resolver.validate(value)) {
 
-                String serializedValue = resolver.serializeType(gemType);
+                String serializedValue = resolver.serializeType(value);
                 return serializedValue;
 
             }
@@ -176,27 +180,4 @@ public class GemTypeContext {
         return null;
     }
 
-    /**
-     * Builds a GemType instance (with the specified class type) and injects the value into it
-     * @param value
-     * @param typeClazz
-     * @return
-     */
-    public GemType buildGemType(Object value, Class<? extends GemType> typeClazz) {
-
-        try {
-
-            GemType gemType = typeClazz.newInstance();
-            gemType.set(value);
-
-            return gemType;
-
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 }

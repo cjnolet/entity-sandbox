@@ -1,12 +1,12 @@
 package sonixbp.datatype.resolver;
 
 
-import sonixbp.datatype.type.IPType;
+import sonixbp.datatype.type.IP;
 
-public class IPTypeResolver implements GemTypeResolver<IPType> {
+public class IPTypeResolver implements GemTypeResolver<IP> {
 
     @Override
-    public IPType deserializeType(String value) {
+    public IP deserializeType(String value) {
 
         String finalIP = "";
         for(int i = 0; i < 4; i++) {
@@ -21,15 +21,14 @@ public class IPTypeResolver implements GemTypeResolver<IPType> {
             }
         }
 
-        IPType type = new IPType();
-        type.set(finalIP);
+        IP type = new IP(finalIP);
         return type;
     }
 
     @Override
-    public String serializeType(IPType value) {
+    public String serializeType(IP value) {
 
-        String[] ip = value.get().split("\\.");
+        String[] ip = value.getValue().split("\\.");
 
         String buffer = "";
         for(int i = 0; i < ip.length; i++) {
@@ -40,7 +39,7 @@ public class IPTypeResolver implements GemTypeResolver<IPType> {
     }
 
     @Override
-    public boolean validate(IPType value) {
+    public boolean validate(IP value) {
         return true;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

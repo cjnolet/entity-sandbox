@@ -1,19 +1,13 @@
 package sonixbp.domain;
 
-import sonixbp.datatype.mapping.GemTypeContext;
-import sonixbp.datatype.type.GemType;
-import sonixbp.datatype.type.StringLiteralType;
-
 import java.util.Map;
 
 
-public class Attribute<T extends GemType> extends Tuple {
+public class Attribute extends Tuple {
 
     Map<String,Object> metadata;
 
-    Class<? extends GemType> gemType = StringLiteralType.class;
-
-	public Attribute(String key, T value) {
+	public Attribute(String key, Object value) {
 		super(key, value);
 	}
 
@@ -25,8 +19,4 @@ public class Attribute<T extends GemType> extends Tuple {
         this.metadata = metadata;
     }
 
-    public GemType getAsGemType() {
-
-        return GemTypeContext.getInstance().buildGemType(value, gemType);
-    }
 }

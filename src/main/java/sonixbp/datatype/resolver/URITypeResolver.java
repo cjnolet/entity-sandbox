@@ -1,37 +1,33 @@
 package sonixbp.datatype.resolver;
 
-import sonixbp.datatype.type.GemType;
-import sonixbp.datatype.type.URIType;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
 
-public class URITypeResolver implements GemTypeResolver<URIType> {
+public class URITypeResolver implements GemTypeResolver<URI> {
 
     @Override
-    public URIType deserializeType(String value) {
-
-        URIType type = new URIType();
-        type.set(value);
-
-        return type;
-    }
-
-    @Override
-    public String serializeType(URIType value) {
-        return value.get().toString();
-    }
-
-    @Override
-    public boolean validate(URIType value) {
+    public URI deserializeType(String value) {
 
         try {
-            URI uri = new URI(value.get());
+            URI uri = new URI(value);
+
+            return uri;
         } catch (URISyntaxException e) {
-            return false;
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        return true;
+        return null;
+    }
+
+    @Override
+    public String serializeType(URI value) {
+        return value.toASCIIString();
+    }
+
+    @Override
+    public boolean validate(URI value) {
+
+        return value != null;
     }
 }

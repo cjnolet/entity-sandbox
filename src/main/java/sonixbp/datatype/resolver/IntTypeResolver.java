@@ -1,27 +1,23 @@
 package sonixbp.datatype.resolver;
 
-import sonixbp.datatype.type.IntType;
-
 /**
  * Resolver for serializing and deserializing Integer types
  */
-public class IntTypeResolver implements GemTypeResolver<IntType> {
+public class IntTypeResolver implements GemTypeResolver<Integer> {
 
     @Override
-    public IntType deserializeType(String value) {
+    public Integer deserializeType(String value) {
 
-        IntType type = new IntType();
-        type.set(Integer.parseInt(value));
-        return type;
+       return Integer.parseInt(value);
     }
 
     @Override
-    public String serializeType(IntType value) {
-        return Integer.toString(value.get());
+    public String serializeType(Integer value) {
+        return Integer.toString(value);
     }
 
     @Override
-    public boolean validate(IntType value) {
-        return true;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean validate(Integer value) {
+        return true;
     }
 }

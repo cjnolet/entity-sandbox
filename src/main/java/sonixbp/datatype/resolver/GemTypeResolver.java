@@ -1,12 +1,10 @@
 package sonixbp.datatype.resolver;
 
-import sonixbp.datatype.type.GemType;
-
 /**
  * Maps a [typed] raw value into a serialized form and vice versa
  * @param <T>
  */
-public interface GemTypeResolver<T extends GemType> {
+public interface GemTypeResolver<T> {
 
     /**
      * A deserialized form should return the raw object

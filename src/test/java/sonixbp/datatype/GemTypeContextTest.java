@@ -7,27 +7,46 @@ import sonixbp.datatype.exception.GemTypeValidationFailedException;
 import sonixbp.datatype.mapping.GemTypeContext;
 import sonixbp.datatype.type.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.DecimalFormat;
+import java.util.Date;
+
 public class GemTypeContextTest {
 
     @Test
-    public void testMapperFactoryInitializes() throws GemTypeValidationFailedException, GemTypeSerializationFailedException, GemTypeDeserializationFailedException {
+    public void testMapperFactoryInitializes() throws GemTypeValidationFailedException, GemTypeSerializationFailedException, GemTypeDeserializationFailedException, URISyntaxException {
 
         GemTypeContext.getInstance();
 
-        System.out.println(GemTypeContext.getInstance().buildGemType(10L, LongType.class).getAsString());
+        /**
+         * Test serialization
+         */
+        System.out.println("Boolean: " + GemTypeContext.getInstance().serialize(true));
+        System.out.println("Long: " + GemTypeContext.getInstance().serialize(10L));
+        System.out.println("Integer: " + GemTypeContext.getInstance().serialize(500000));
+        System.out.println("String Literal: " + GemTypeContext.getInstance().serialize("HELLO!"));
+        System.out.println("Double: " + GemTypeContext.getInstance().serialize(15.0));
+        System.out.println("Byte:" + GemTypeContext.getInstance().serialize(Byte.parseByte("001")));
+        System.out.println("NonNegative Integer: " + GemTypeContext.getInstance().serialize(NonNegativeInteger.parseNonNegativeInteger("5")));
+        System.out.println("Date: " + GemTypeContext.getInstance().serialize(new Date()));
 
-        System.out.println(GemTypeContext.getInstance().getAliasForGemType(StringLiteralType.class));
+        /**
+         * Test get Alias
+         */
+        System.out.println("Alias for String Literal: " + GemTypeContext.getInstance().getAliasForGemType(String.class));
 
-        System.out.println(GemTypeContext.getInstance().buildGemType(10L, LongType.class));
+//
+        /**
+         * Test special types
+         */
+        IP type = new IP("172.32.90.1");
 
-        System.out.println(GemTypeContext.getInstance().buildGemType(true, BooleanType.class));
+        System.out.println("172.32.90.1 = " + GemTypeContext.getInstance().serialize(type));
+        System.out.println(GemTypeContext.getInstance().deserialize("10101100001000000101101000000001", IP.class));
 
-        System.out.println(GemTypeContext.getInstance().buildGemType(500, IntType.class));
-
-        System.out.println(GemTypeContext.getInstance().buildGemType("TESTING!", StringLiteralType.class));
-
-        System.out.println("172.32.90.1 = " + GemTypeContext.getInstance().serialize("172.32.90.1", IPType.class));
-
-        System.out.println(GemTypeContext.getInstance().deserialize("10101100001000000101101000000001", IPType.class));
+        URI uri = new URI("hello.com");
+        System.out.println(GemTypeContext.getInstance().serialize(uri));
+        System.out.println(GemTypeContext.getInstance().deserialize("http://www.hello.com", URI.class));
     }
 }

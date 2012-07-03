@@ -1,25 +1,20 @@
 package sonixbp.datatype.resolver;
 
-import sonixbp.datatype.type.LongType;
-
-public class LongTypeResolver implements GemTypeResolver<LongType> {
+public class LongTypeResolver implements GemTypeResolver<Long> {
 
 
     @Override
-    public LongType deserializeType(String value) {
-        LongType type = new LongType();
-        type.set(Long.parseLong(value));
-
-        return type;
+    public Long deserializeType(String value) {
+        return Long.parseLong(value);
     }
 
     @Override
-    public String serializeType(LongType value) {
-        return Long.toString(value.get());
+    public String serializeType(Long value) {
+        return Long.toString(value);
     }
 
     @Override
-    public boolean validate(LongType value) {
+    public boolean validate(Long value) {
         return true;
     }
 }
