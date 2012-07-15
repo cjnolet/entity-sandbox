@@ -28,6 +28,8 @@ public class CloudbaseEntityChangesetCache implements EntityChangesetCache {
         } catch (TableNotFoundException e) {
             e.printStackTrace();
         }
+
+
     }
 
     public void persistEntityChangeset(Entity entity) {
@@ -50,6 +52,7 @@ public class CloudbaseEntityChangesetCache implements EntityChangesetCache {
         try {
             scanner = connector.createScanner(TABLE,
                     connector.securityOperations().getUserAuthorizations(connector.whoami()));
+
         } catch (TableNotFoundException e) {
 
             return null;

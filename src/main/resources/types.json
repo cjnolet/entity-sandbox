@@ -1,34 +1,45 @@
 [{
-    aliases: ["^^xsd:intr", "http://www.w3.org/2001/XMLSchema#int"],
+    aliases: ["^^xsd:integer", "http://www.w3.org/2001/XMLSchema#int"],
+    typeClass: "java.lang.Integer",
     resolverClass: "sonixbp.datatype.resolver.IntTypeResolver"
 },{
     aliases: ["^^xsd:long"],
+    typeClass: "java.lang.Long",
     resolverClass: "sonixbp.datatype.resolver.LongTypeResolver"
 },{
     aliases: ["^^xsd:boolean"],
+    typeClass: "java.lang.Boolean",
     resolverClass: "sonixbp.datatype.resolver.BooleanTypeResolver"
 },{
     aliases: ["^^xsd:string", "^^xsd:language"],
+    typeClass: "java.lang.String",
     resolverClass: "sonixbp.datatype.resolver.StringLiteralTypeResolver"
 },{
     aliases: ["^^xsd:double"],
+    typeClass: "java.lang.Double",
     resolverClass: "sonixbp.datatype.resolver.DoubleTypeResolver"
 },{
     aliases: ["^^gem:ip"],
-    resolverClass: "sonixbp.datatype.resolver.IPTypeResolver"
+    typeClass: "sonixbp.datatype.type.IPv4",
+    resolverClass: "sonixbp.datatype.resolver.IPv4TypeResolver"
 },{
     aliases: ["^^xsd:anyURI"],
+    typeClass: "java.net.URI",
     resolverClass: "sonixbp.datatype.resolver.URITypeResolver"
 },{
     aliases: ["^^xsd:byte"],
+    typeClass: "java.lang.Byte",
     resolverClass: "sonixbp.datatype.resolver.ByteTypeResolver"
 },{
     aliases: ["^^xsd:float"],
+    typeClass: "java.lang.Float",
     resolverClass: "sonixbp.datatype.resolver.FloatTypeResolver"
 },{
     aliases: ["^^xsd:nonNegativeInteger"],
+    typeClass: "sonixbp.datatype.type.NonNegativeInteger",
     resolverClass: "sonixbp.datatype.resolver.NonNegativeIntegerResolver"
 },{
     aliases: ["^^xsd:dateTime"],
+    typeClass: "java.util.Date",
     resolverClass: "sonixbp.datatype.resolver.DateTypeResolver"
 }]

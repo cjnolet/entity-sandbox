@@ -3,12 +3,15 @@ package sonixbp.domain;
 import java.util.Map;
 
 
-public class Attribute extends Tuple {
+public class Attribute<T extends Object> extends Tuple {
+
+    private T value;
 
     Map<String,Object> metadata;
 
-	public Attribute(String key, Object value) {
+	public Attribute(String key, T value) {
 		super(key, value);
+        this.value = value;
 	}
 
     public Map<String, Object> getMetadata() {
@@ -19,4 +22,12 @@ public class Attribute extends Tuple {
         this.metadata = metadata;
     }
 
+    @Override
+    public T getValue() {
+        return value;
+    }
+
+    public String toString() {
+        return new StringBuffer().append("attribute [key=").append(key).append(", value=").append(value).append("]").toString();
+    }
 }

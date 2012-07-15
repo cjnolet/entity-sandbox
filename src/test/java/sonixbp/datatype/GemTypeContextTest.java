@@ -6,10 +6,10 @@ import sonixbp.datatype.exception.GemTypeSerializationFailedException;
 import sonixbp.datatype.exception.GemTypeValidationFailedException;
 import sonixbp.datatype.mapping.GemTypeContext;
 import sonixbp.datatype.type.*;
+import sonixbp.domain.Attribute;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DecimalFormat;
 import java.util.Date;
 
 public class GemTypeContextTest {
@@ -40,13 +40,17 @@ public class GemTypeContextTest {
         /**
          * Test special types
          */
-        IP type = new IP("172.32.90.1");
+        IPv4 type = new IPv4("172.32.90.1");
 
         System.out.println("172.32.90.1 = " + GemTypeContext.getInstance().serialize(type));
-        System.out.println(GemTypeContext.getInstance().deserialize("10101100001000000101101000000001", IP.class));
+        System.out.println(GemTypeContext.getInstance().deserialize("10101100001000000101101000000001", IPv4.class));
 
         URI uri = new URI("hello.com");
         System.out.println(GemTypeContext.getInstance().serialize(uri));
         System.out.println(GemTypeContext.getInstance().deserialize("http://www.hello.com", URI.class));
+
+        Attribute<Date> attr = new Attribute<Date>("key", new Date());
+
+        System.out.println(attr);
     }
 }
